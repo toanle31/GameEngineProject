@@ -9,7 +9,7 @@ project "Engine"
 
    includedirs
    {
-      "Source"
+      "Source/*"
    }
 
    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
