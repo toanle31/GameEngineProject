@@ -1,6 +1,4 @@
 #pragma once
 
-namespace Engine 
-{
-	void PrintHelloWorld();
-}
+NAMESPACE_WRAPPER(Engine)
+
