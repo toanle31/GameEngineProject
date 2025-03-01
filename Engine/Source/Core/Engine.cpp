@@ -1,3 +1,10 @@
 #include "Engine.h"
+Bonk::Engine::Engine()
+{
 
-#include <iostream>
+}
+
+Bonk::Engine::~Engine()
+{
+
+}
