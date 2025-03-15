@@ -1,4 +1,6 @@
 # Dirs
+/Binaries
+/Intermediates
 **/Binaries
 **/Intermediates
 **/obj
