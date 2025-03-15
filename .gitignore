@@ -1,6 +1,6 @@
 # Dirs
 /Binaries
-/Intermediates
+/Itermediates
 **/Binaries
 **/Intermediates
 **/obj
@@ -12,9 +12,6 @@
 **.vcxproj.filters
 **.vcxproj.user
 **.csproj
-**.lib
-**.pdb
-**.idb
 *.com
 *.class
 *.dll
