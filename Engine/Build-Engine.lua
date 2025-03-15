@@ -1,37 +1,52 @@
 project "Engine"
-   kind "StaticLib"
-   language "C++"
-   cppdialect "C++20"
-   targetdir "Binaries/%{cfg.buildcfg}"
-   staticruntime "off"
+	kind "StaticLib"
+	language "C++"
+	cppdialect "C++20"
+	staticruntime "off"
+	targetdir "%{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
+	objdir "%{wks.location}/Engine/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
+	pchheader "pch.h"
+	pchsource "Source/Includes/pch.cpp"
+	
+	files { 
+		"Source/**.h", 
+		"Source/**.cpp", 
+		"Source/Core/**.h", 
+		"Source/Core/**.cpp", 
+		"Source/Includes/**.h", 
+		"Source/Includes/**.cpp", 
+	}
 
-   files { "Source/**.h", "Source/**.cpp" }
+	includedirs { 
+		"%{wks.location}/Engine/Source", 
+		"%{wks.location}/Engine/Source/Core", 
+		"%{wks.location}/Engine/Source/Includes", 
+	}
 
-   includedirs
-   {
-      "Source/*"
-   }
+	filter "files:Source/**.cpp"
+    	forceincludes { "pch.h", "Bonk.h" }
 
-   targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
-   objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
+	filter "system:windows"
+		systemversion "latest"
 
-   filter "system:windows"
-       systemversion "latest"
-       defines { }
+	filter "system:linux"
+		systemversion "latest"
+		links { "dl", "pthread" }
 
-   filter "configurations:Debug"
-       defines { "DEBUG" }
-       runtime "Debug"
-       symbols "On"
+	filter "configurations:Debug"
+		kind "SharedLib"
+		defines { "BUILD_SHARED", "BUILD_DEBUG"}
+		runtime "Debug"
+		symbols "On"
 
-   filter "configurations:Release"
-       defines { "RELEASE" }
-       runtime "Release"
-       optimize "On"
-       symbols "On"
+	filter "configurations:Release"
+		defines { "BUILD_RELEASE"}
+		runtime "Release"
+		optimize "On"
+		symbols "On"
 
-   filter "configurations:Dist"
-       defines { "DIST" }
-       runtime "Release"
-       optimize "On"
-       symbols "Off"
+	filter "configurations:Dist"
+		defines { "BUILD_DIST"}
+		runtime "Release"
+		optimize "On"
+		symbols "Off"

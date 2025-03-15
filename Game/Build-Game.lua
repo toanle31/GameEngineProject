@@ -1,45 +1,44 @@
 project "Game"
-   kind "ConsoleApp"
-   language "C++"
-   cppdialect "C++20"
-   targetdir "Binaries/%{cfg.buildcfg}"
-   staticruntime "off"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++20"
+	staticruntime "off"
+	dependson { "Engine" }
+	targetdir "%{wks.location}/Game/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
+	objdir "%{wks.location}/Game/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
 
-   files { "Source/**.h", "Source/**.cpp" }
+	files { 
+		"Source/**.h", 
+		"Source/**.cpp"
+	}
 
-   includedirs
-   {
-      "Source",
+	includedirs {
+		"%{wks.location}/Game/Source",
+		"%{wks.location}/Engine/Source/Core",
+		"%{wks.location}/Engine/Source/Includes"
+	}
 
-	  -- Include Core
-	  "../Engine/Source"
-   }
+	links { "Engine" }
 
-   links
-   {
-      "Engine"
-   }
+	filter "files:Source/**.cpp"
+    	forceincludes { "pch.h", "Bonk.h" }
 
-   targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
-   objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
+	filter "system:windows"
+		systemversion "latest"
 
-   filter "system:windows"
-       systemversion "latest"
-       defines { "WINDOWS" }
+	filter "configurations:Debug"
+		defines { "BUILD_SHARED", "DEBUG" }
+		runtime "Debug"
+		symbols "On"
 
-   filter "configurations:Debug"
-       defines { "DEBUG" }
-       runtime "Debug"
-       symbols "On"
+	filter "configurations:Release"
+		defines { "RELEASE" }
+		runtime "Release"
+		optimize "On"
+		symbols "On"
 
-   filter "configurations:Release"
-       defines { "RELEASE" }
-       runtime "Release"
-       optimize "On"
-       symbols "On"
-
-   filter "configurations:Dist"
-       defines { "DIST" }
-       runtime "Release"
-       optimize "On"
-       symbols "Off"
+	filter "configurations:Dist"
+		defines { "DIST" }
+		runtime "Release"
+		optimize "On"
+		symbols "Off"
