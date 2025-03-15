@@ -1,11 +1,18 @@
 #pragma once
-#include "Bonk.h"
-#include "widemath.h"
+
 namespace Bonk
 {
+
 class ENGINE_API Engine
 {
+public:
 	Engine();
 	virtual ~Engine();
+
+	void EngineLoop();
+	void Tick(const float DeltaTime);
+private:
+	uint64 Ticks = 0;
 };
+
 }

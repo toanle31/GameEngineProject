@@ -3,9 +3,11 @@ project "Engine"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	targetdir "%{wks.location}/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
-	objdir "%{wks.location}/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
-
+	targetdir "%{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
+	objdir "%{wks.location}/Engine/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
+	pchheader "pch.h"
+	pchsource "Source/Includes/pch.cpp"
+	
 	files { 
 		"Source/**.h", 
 		"Source/**.cpp", 
@@ -21,8 +23,10 @@ project "Engine"
 		"%{wks.location}/Engine/Source/Includes", 
 	}
 
+	filter "files:Source/**.cpp"
+    	forceincludes { "pch.h", "Bonk.h" }
+
 	filter "system:windows"
-		defines { "ENGINE_EXPORTS" }
 		systemversion "latest"
 
 	filter "system:linux"
@@ -30,18 +34,19 @@ project "Engine"
 		links { "dl", "pthread" }
 
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED" }
+		kind "SharedLib"
+		defines { "BUILD_SHARED", "BUILD_DEBUG"}
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines { "RELEASE" }
+		defines { "BUILD_RELEASE"}
 		runtime "Release"
 		optimize "On"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines { "DIST" }
+		defines { "BUILD_DIST"}
 		runtime "Release"
 		optimize "On"
 		symbols "Off"
