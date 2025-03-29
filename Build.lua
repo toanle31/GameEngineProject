@@ -6,7 +6,7 @@ workspace "GameEngineProject"
 	prebuildcommands {
 		"echo Generating Project Files....",
 		"CD %{wks.location}",
-		"CALL lua GenerateProjectFiles.lua regen"	
+		"CALL GenerateProjectFiles.lua regen"	
 	}
 
 	postbuildcommands {

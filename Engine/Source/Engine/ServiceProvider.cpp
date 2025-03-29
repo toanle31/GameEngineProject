@@ -1,6 +1,6 @@
 #include "ServiceProvider.h"
 
-namespace System
+namespace Core
 {
 
 }

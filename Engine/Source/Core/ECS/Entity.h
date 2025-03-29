@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EngineTypes/EngineTypes.h"
+#include "Core/EngineTypes.h"
 
 struct ENGINE_API Entity
 {

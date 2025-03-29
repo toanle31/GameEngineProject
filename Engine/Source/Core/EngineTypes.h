@@ -19,3 +19,23 @@ using type_index = std::type_index;
 template <typename T> using shared_ptr = std::shared_ptr<T>;
 template <typename T> using unique_ptr = std::unique_ptr<T>;
 template <typename T> using weak_ptr = std::weak_ptr<T>;
+
+//==========================================================//
+
+enum class ETickGroup : uint8
+{
+	None
+};
+
+enum class EEngineState : uint8
+{
+	None,
+	Running,
+	ExitRequested
+};
+
+enum class EExitCode : uint8
+{
+	None,
+	CODE_ERROR
+};

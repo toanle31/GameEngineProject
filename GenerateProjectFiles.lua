@@ -127,7 +127,7 @@ if (arg_map["regen"] ~= nil) then
 			update_log("./build_log.txt", "last-modified", k, v)
 		end
 		-- for batch to catch and restart the build
-		os.exit(1)
+		os.exit(0)
 	else
 		print("No changes to lua files - skipping Premake.")
 		os.exit(0)

@@ -1,13 +1,13 @@
 #pragma once
-#include "Systems/SystemInterface.h"
+#include "Engine/SystemInterface.h"
 
 namespace Core
 {
 
 class ENGINE_API Engine : public IEngineService
 {
+	DECLARE_SINGLETON_SERVICE(Engine)
 public:
-	Engine();
 	virtual ~Engine();
 	int32 EngineMain();
 

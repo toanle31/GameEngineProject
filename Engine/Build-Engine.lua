@@ -6,18 +6,24 @@ project "Engine"
 	targetdir "%{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
 	objdir "%{wks.location}/Engine/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
 	pchheader "pch.h"
-	pchsource "Source/Includes/pch.cpp"
+	pchsource "Source/Core/Includes/pch.cpp"
 
 	files { 
 		"Source/**.h", 
 		"Source/**.cpp"
 	}
 
-	includedirs { 
+	includedirs {
 		"%{wks.location}/Engine/Source", 
-		"%{wks.location}/Engine/Source/Core", 
-		"%{wks.location}/Engine/Source/Includes", 
-		"%{wks.location}/Engine/Source/Systems",
+		"%{wks.location}/Engine/Source/Core",
+		"%{wks.location}/Engine/Source/Core/Includes",
+		"%{wks.location}/Engine/Source/Engine",
+		"%{wks.location}/Engine/Source/Input",
+		"%{wks.location}/Engine/Source/Networking",
+		"%{wks.location}/Engine/Source/Physics",
+		"%{wks.location}/Engine/Source/Renderer",
+		"%{wks.location}/Engine/Source/UI",
+		"%{wks.location}/Engine/Source/Utils",
 	}
 
 	filter "system:windows"

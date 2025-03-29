@@ -16,7 +16,7 @@ project "Game"
 		"%{wks.location}/Game/Source",
 		"%{wks.location}/Engine/Source",
 		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Includes",
+		"%{wks.location}/Engine/Source/Core/Includes",
 	}
 
 	links { "Engine" }
