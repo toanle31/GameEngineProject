@@ -1,9 +1,8 @@
 #pragma once
-#include "SystemTypes.h"
+
+#include "EngineTypes/EngineTypes.h"
 
 struct ENGINE_API Entity
 {
 	uint64 EntityId;
-
-	// Archetype?
 };

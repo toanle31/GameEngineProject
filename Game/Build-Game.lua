@@ -14,14 +14,12 @@ project "Game"
 
 	includedirs {
 		"%{wks.location}/Game/Source",
+		"%{wks.location}/Engine/Source",
 		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Includes"
+		"%{wks.location}/Engine/Source/Includes",
 	}
 
 	links { "Engine" }
-
-	filter "files:Source/**.cpp"
-    	forceincludes { "pch.h", "Bonk.h" }
 
 	filter "system:windows"
 		systemversion "latest"

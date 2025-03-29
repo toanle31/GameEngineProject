@@ -1,20 +1,23 @@
 -- premake5.lua
-workspace "Game Engine Project"
+workspace "GameEngineProject"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
+
 	prebuildcommands {
 		"echo Generating Project Files....",
 		"CD %{wks.location}",
-		"CALL GenerateProjectFiles.bat"	
+		"CALL lua GenerateProjectFiles.lua regen"	
 	}
+
 	postbuildcommands {
         "{COPY} %{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}/Engine.dll %{wks.location}/Game/Binaries/%{cfg.buildcfg}/%{cfg.architecture}/"
     }
+
 	startproject "Game"
 	platforms { "Windows-x64", "Linux-x64" }
 
-	filter "files:Source/**.cpp"
-    	forceincludes { "pch.h", "Bonk.h" }
+	filter "files:**/Source/**.cpp"
+    	forceincludes { "pch.h" }
 
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"

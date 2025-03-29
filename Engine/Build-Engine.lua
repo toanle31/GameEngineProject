@@ -7,24 +7,18 @@ project "Engine"
 	objdir "%{wks.location}/Engine/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
 	pchheader "pch.h"
 	pchsource "Source/Includes/pch.cpp"
-	
+
 	files { 
 		"Source/**.h", 
-		"Source/**.cpp", 
-		"Source/Core/**.h", 
-		"Source/Core/**.cpp", 
-		"Source/Includes/**.h", 
-		"Source/Includes/**.cpp", 
+		"Source/**.cpp"
 	}
 
 	includedirs { 
 		"%{wks.location}/Engine/Source", 
 		"%{wks.location}/Engine/Source/Core", 
 		"%{wks.location}/Engine/Source/Includes", 
+		"%{wks.location}/Engine/Source/Systems",
 	}
-
-	filter "files:Source/**.cpp"
-    	forceincludes { "pch.h", "Bonk.h" }
 
 	filter "system:windows"
 		systemversion "latest"

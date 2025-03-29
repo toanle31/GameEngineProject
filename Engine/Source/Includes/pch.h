@@ -3,9 +3,9 @@
 #include <cassert>
 #include <memory>
 #include <typeindex>
-#include <unordered_map>
 #include <iostream>
 #include "widemath.h"
+#include <typeinfo>
 
 #include "Core.h"
 #include "EngineTypes/EngineTypes.h"

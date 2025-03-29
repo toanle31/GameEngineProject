@@ -1,18 +1,19 @@
 #pragma once
+#include "Systems/SystemInterface.h"
 
-namespace Bonk
+namespace Core
 {
 
-class ENGINE_API Engine
+class ENGINE_API Engine : public IEngineService
 {
 public:
 	Engine();
 	virtual ~Engine();
+	int32 EngineMain();
 
+private:
 	void EngineLoop();
 	void Tick(const float DeltaTime);
-private:
-	uint64 Ticks = 0;
 };
 
 }
