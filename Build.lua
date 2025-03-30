@@ -3,10 +3,11 @@ workspace "GameEngineProject"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
 
-	prebuildcommands {
-		"echo Generating Project Files....",
+	buildcommands {
+		"echo Starting Build...",
+		"echo Calling BuildProject.lua",
 		"CD %{wks.location}",
-		"CALL GenerateProjectFiles.lua regen"	
+		"Call BuildProject.lua gen build"
 	}
 
 	postbuildcommands {
