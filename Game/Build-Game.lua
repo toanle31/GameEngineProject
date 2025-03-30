@@ -25,7 +25,7 @@ project "Game"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "DEBUG" }
+		defines { "BUILD_SHARED", "BUILD_DEBUG" }
 		runtime "Debug"
 		symbols "On"
 

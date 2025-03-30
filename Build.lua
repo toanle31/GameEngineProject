@@ -2,18 +2,10 @@
 workspace "GameEngineProject"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
-
-	buildcommands {
-		"echo Starting Build...",
-		"echo Calling BuildProject.lua",
-		"CD %{wks.location}",
-		"Call BuildProject.lua gen build"
-	}
-
 	postbuildcommands {
         "{COPY} %{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}/Engine.dll %{wks.location}/Game/Binaries/%{cfg.buildcfg}/%{cfg.architecture}/"
     }
-
+	
 	startproject "Game"
 	platforms { "Windows-x64", "Linux-x64" }
 
@@ -22,6 +14,7 @@ workspace "GameEngineProject"
 
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
+		toolset "msc-v143"
 		buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
 		defines { "CONFIG_PLATFORM_WINDOWS", "ENGINE_EXPORTS"}
 
@@ -29,6 +22,11 @@ workspace "GameEngineProject"
 		buildoptions { "-Wall", "-Wextra", "-std=c++20" }
 		links { "pthread", "dl" }
 		defines { "CONFIG_PLATFORM_LINUX" }
+	
+	filter "configurations:Debug"
+		buildoptions { "/LDd" }
+		defines { "_DEBUG" }
+		intrinsics "On"
 
 group "Engine"
 	include "Engine/Build-Engine.lua"

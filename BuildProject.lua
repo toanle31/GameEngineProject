@@ -9,14 +9,13 @@ local PREMAKE_FILES = {
 
 local NAME_Intermediates = "Intermediates"
 
+local PATH_sln = "\"GameEngineProject.sln\""
 local PATH_Game = "./Game/"
 local PATH_Engine = "./Engine/"
 local PATH_log = "./build_log.txt"
 local PATH_premake_folder = ".\\Vendor\\Binaries\\Premake\\Windows\\"
 local CMD_premake = "Premake5.exe --file=Build.lua vs2022"
-local CMD_msbuild = "MSBuild.exe /p:Configuration=%s /v:%s"
-
-local SECTION_last_modified = "last-modified"
+local CMD_msbuild = "MSBuild.exe %s /p:Configuration=%s /v:%s"
 
 local ARG_clean = "clean"
 local ARG_gen = "gen"
@@ -28,7 +27,6 @@ local ARG_config = "config="
 local ARG_LIST = {
     [ARG_clean]     = { ["msg"] = "\t\t\t--Delete Intermediate folders.", ["weight"] = 1 },
     [ARG_gen]       = { ["msg"] = "\t\t\t--Run Premake to generate project files.", ["weight"] = 2 },
-    [ARG_forcegen]  = { ["msg"] = "\t\t\t--Force premake even if build files are not dirtied.", ["weight"] = 2 },
     [ARG_build]     = { ["msg"] = "\t\t\t--Run MSBuild to build the project.", ["weight"] = 3 },
     [ARG_config]    = { ["msg"] = "\t\t\t--Set config you would like MSBuild to run.", ["weight"] = 3 },
     [ARG_help]      = { ["msg"] = "\t\t\t--Display this list.", ["weight"] = 100 }
@@ -100,9 +98,6 @@ local function get_file_timestamps(paths)
                 attr:close()
             end
 
-            -- Debugging: Show the raw output
-            --print("Raw output for", path, "->", raw_output)
-
             local timestamp = raw_output:match("%d+")
             -- Windows FILETIME Fix: Convert to Unix timestamp
             if timestamp and package.config:sub(1,1) == "\\" then
@@ -117,7 +112,6 @@ local function get_file_timestamps(paths)
         else
             timestamps[path] = "Invalid Path"
         end
-		--print(timestamps[path])
     end
 
     return timestamps
@@ -134,7 +128,6 @@ local function get_build_configuration()
     end)
 
     if not success then
-        -- If there was an error, set the configuration to "Debug"
         config = "Debug"
     end
 
@@ -150,27 +143,28 @@ local function try_find_config_arg()
     return nil
 end
 
-local function should_run_premake()
-    local log = parse_log(PATH_log)
-    local current_timestamps = get_file_timestamps(PREMAKE_FILES)
-    if (log[SECTION_last_modified] ~= nil and next(log[SECTION_last_modified]) ~= nil) then
-        for k, v in pairs(current_timestamps) do
-            if (v ~= log[SECTION_last_modified][k]) then
-                return true
-            end
-        end
-    else
-        return true
-    end
-
-    return false
-end
-
 local function run_command(command)
     local handle = io.popen("cmd /c " .. command .. " 2>&1")
     local output = handle:read("*a")
     local success, exit_type, exit_code = handle:close()
     return success, output, exit_type, exit_code
+end
+
+-- Check if MSBuild is available
+local function msbuild_available()
+	local check_cmd = nil
+	if package.config:sub(1,1) == "\\" then  -- Windows system
+        check_cmd = "where MSBuild.exe 2>nul"
+    else -- Linux/macOS system
+        check_cmd = "which msbuild 2>/dev/null"
+    end
+
+    -- Try to get MSBuild from PATH
+    local handle = io.popen(check_cmd)
+    local result = handle:read("*a")
+    local success = handle:close()
+    
+    return success
 end
 
 -- run premake
@@ -183,23 +177,28 @@ local function handle_gen()
     if not success then
         print(string.format("Error: Premake returned Error: %s - exit_type: %s", tostring(exit_code), tostring(exit_type)))
         os.exit(1)
-    else
-        local current_timestamps = get_file_timestamps(PREMAKE_FILES)
-        for k, v in pairs(current_timestamps) do
-            update_log(PATH_log, SECTION_last_modified, k, v)
-        end
     end
+end
+
+local function trigger_msbuild_build(configuration)
+	local msbuild_command = string.format(CMD_msbuild, PATH_sln, configuration, "minimal")
+    print(string.format("Executing MSBuild command: %s", msbuild_command))
+    os.execute(msbuild_command)
 end
 
 -- build/rebuild
 local function handle_build(configuration)
     if (configuration == nil) then
         configuration = get_build_configuration()
-        print(configuration)
+        --print(string.format("Using configuration: %s", configuration))
     end
-    local msbuild_command = string.format(CMD_msbuild, configuration, "minimal")
-    print(string.format("Executing MSBuild command: %s", msbuild_command))
-    os.execute(msbuild_command)
+
+	if msbuild_available() then
+		trigger_msbuild_build(configuration)
+	else
+		print("Make sure MSBuild is installed.")
+	end
+
 end
 
 local function handle_help()
@@ -245,13 +244,6 @@ local function switch_function(argument)
             handle_clean()
         end,
         [ARG_gen] = function()
-            local should = should_run_premake()
-            if (should) then
-                print("Detected Changes to build lua files.")
-                handle_gen()
-            end
-        end,
-        [ARG_forcegen] = function()
             handle_gen()
         end,
         [ARG_build] = function()
@@ -291,8 +283,8 @@ local function pre_process_arg()
     end
 
     local function arg_sort_predicate(a, b)
-        local a_weight = ARG_LIST[a]["weight"]
-        local b_weight = ARG_LIST[b]["weight"]
+        local a_weight = ARG_LIST[a] and ARG_LIST[a]["weight"] or 999
+        local b_weight = ARG_LIST[b] and ARG_LIST[b]["weight"] or 999
         return a_weight < b_weight
     end
 
