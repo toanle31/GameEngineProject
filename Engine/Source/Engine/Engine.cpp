@@ -1,8 +1,5 @@
 #include "Engine.h"
 
-namespace Core
-{
-
 Engine::~Engine()
 {
 
@@ -25,6 +22,4 @@ void Engine::EngineLoop()
 void Engine::Tick(const float DeltaTime)
 {
 	// GameInstance::Tick() -> Calls individual World->Ticks
-}
-
 }

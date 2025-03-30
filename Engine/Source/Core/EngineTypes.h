@@ -14,11 +14,11 @@ using uint16 = uint16_t;
 using uint32 = uint32_t;
 using uint64 = uint64_t;
 
-using type_index = std::type_index;
+using TypeIndex = std::type_index;
 
-template <typename T> using shared_ptr = std::shared_ptr<T>;
-template <typename T> using unique_ptr = std::unique_ptr<T>;
-template <typename T> using weak_ptr = std::weak_ptr<T>;
+template <typename T> using TSharedPtr = std::shared_ptr<T>;
+template <typename T> using TUniquePtr = std::unique_ptr<T>;
+template <typename T> using TWeakPtr = std::weak_ptr<T>;
 
 //==========================================================//
 

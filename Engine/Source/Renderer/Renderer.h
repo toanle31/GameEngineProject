@@ -1,13 +1,10 @@
 #pragma once
-#include "Engine/SystemInterface.h"
+#include "Interfaces\ProductInterface.h"
 
-namespace Core
+class ENGINE_API Renderer final : public ISingletonProduct
 {
-
-class ENGINE_API Renderer : IEngineService
-{
+	DECLARE_SINGLETON_PRODUCT(Renderer)
 public:
-
+	~Renderer() = default;
+	void Initialize();
 };
-
-}

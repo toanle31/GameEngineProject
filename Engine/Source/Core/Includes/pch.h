@@ -9,3 +9,5 @@
 
 #include "Core/Includes/Core.h"
 #include "Core/EngineTypes.h"
+#include "Utils/Assertions.h"
+#include "Utils/Log.h"
