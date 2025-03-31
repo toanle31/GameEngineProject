@@ -1,6 +1,8 @@
 # Personal Game Engine Project
-This is a personal Game Engine Project that I used to teach myself GameEngine Architecture and modern C++ programming practices and functionalities.
-The aim of this project is to use ECS paradigm for as many systems that it could be used for (primarily game systems) - Even if it's not a perfect fit - this is mainly for me to learn more about ECS and its utility.
+>- This is a personal Game Engine Project that I intend to use as a way to teach myself Game Engine Design & Architecture. 
+>- Using C++20, I will also be targetting new features that is addition to the language that I find interesting/useful.
+>- A few restraints/dumb decision I am enforcing on myself for this project:
+>>- Enforce project-wide ECS paradigm wherever possible, even if it's not a good fit - this is mainly for me to learn more about ECS and its utility (and ofc down fall).
 
 
 # Template used to generate the project is detailed below:
