@@ -5,8 +5,7 @@
 >>- Enforce project-wide ECS paradigm wherever possible, even if it's not a good fit - this is mainly for me to learn more about ECS and its utility (and ofc down fall).
 
 
->#Template used to generate the project is detailed below:
-# C++ Project Starter Template
+#Template used to generate the project is detailed below [ C++ Project Starter Template ]
 This is a little quick-start project template for C++ projects which utilise a Core/App project architecture. There are two included projects - one called _Core_, and one called _App_. [Premake](https://github.com/premake/premake-core) is used to generate project files.
 Core builds into a static library and is meant to contain common code intended for use in multiple applications. App builds into an executable and links the Core static library, as well as provides an include path to Core's code.
 The `Scripts/` directory contains build scripts for Windows and Linux, and the `Vendor/` directory contains Premake binaries (currently version `5.0-beta2`).
