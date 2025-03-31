@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Entity.h"
-
+struct Entity;
 class ENGINE_API SystemBase
 {
 public:

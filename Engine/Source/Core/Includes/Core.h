@@ -20,3 +20,15 @@
 #ifdef CONFIG_PLATFORM_LINUX
 	#define PLATFORM_LINUX 1
 #endif
+
+#ifdef BUILD_DEBUG
+	#define DEBUG_BUILD 1
+#else
+	#define DEBUG_BUILD 0
+#endif
+
+#ifdef BUILD_DIST
+	#define DIST_BUILD 1
+#else
+	#define DIST_BUILD 0
+#endif

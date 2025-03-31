@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Entity.h"
-
+struct Entity;
 /*
 * Manages all entity including the World Entity itself.
 */
@@ -10,7 +9,7 @@ class ENGINE_API EntityManager
 public:
 	virtual ~EntityManager() = default;
 	
-	static Entity GetWorld();
+	//static Entity GetWorld();
 
 private:
 

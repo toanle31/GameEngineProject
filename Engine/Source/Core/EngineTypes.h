@@ -1,0 +1,41 @@
+#pragma once
+#include "pch.h"
+#include "cstdint"
+
+// Signed integers
+using int8  = int8_t;
+using int16 = int16_t;
+using int32 = int32_t;
+using int64 = int64_t;
+
+// Unsigned integers
+using uint8  = uint8_t;
+using uint16 = uint16_t;
+using uint32 = uint32_t;
+using uint64 = uint64_t;
+
+using TypeIndex = std::type_index;
+
+template <typename T> using TSharedPtr = std::shared_ptr<T>;
+template <typename T> using TUniquePtr = std::unique_ptr<T>;
+template <typename T> using TWeakPtr = std::weak_ptr<T>;
+
+//==========================================================//
+
+enum class ETickGroup : uint8
+{
+	None
+};
+
+enum class EEngineState : uint8
+{
+	None,
+	Running,
+	ExitRequested
+};
+
+enum class EExitCode : uint8
+{
+	None,
+	CODE_ERROR
+};

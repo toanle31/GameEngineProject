@@ -14,20 +14,18 @@ project "Game"
 
 	includedirs {
 		"%{wks.location}/Game/Source",
+		"%{wks.location}/Engine/Source",
 		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Includes"
+		"%{wks.location}/Engine/Source/Core/Includes",
 	}
 
 	links { "Engine" }
-
-	filter "files:Source/**.cpp"
-    	forceincludes { "pch.h", "Bonk.h" }
 
 	filter "system:windows"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "DEBUG" }
+		defines { "BUILD_SHARED", "BUILD_DEBUG" }
 		runtime "Debug"
 		symbols "On"
 
