@@ -1,22 +1,21 @@
 project "Renderer"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++20"
+	cppdialect "C++23"
 	staticruntime "off"
-	location "%{wks.location}/EngineModules/Renderer"
+	location "%{wks.location}/EngineModules/Rendering"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 
 	links { "Core" }
-    
-    forceincludes {
-        "Core.h"
-    }
-            
+	
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp"
 	}
+
+    filter {"files:**.h"}
+        forceincludes { "Core.h" }
     
 	filter "system:windows"
 		systemversion "latest"
@@ -26,18 +25,19 @@ project "Renderer"
 		links { "dl", "pthread" }
 
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "BUILD_DEBUG"}
+	    kind "SharedLib"
+		defines { "RENDER_SHARED", "CONFIG_DEBUG" }
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines { "BUILD_RELEASE"}
+		defines { "CONFIG_RELEASE"}
 		runtime "Release"
 		optimize "On"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines { "BUILD_DIST"}
+		defines { "CONFIG_DIST"}
 		runtime "Release"
 		optimize "On"
 		symbols "Off"

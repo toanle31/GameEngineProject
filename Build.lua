@@ -1,32 +1,41 @@
 -- premake5.lua
 workspace "GameEngineProject"
 	architecture "x64"
-	configurations { "Debug", "Release", "Dist" }
+	configurations { "Debug", "Development", "Release" }
 	platforms { "Windows-x64", "Linux-x64" }	
     startproject "Sandbox"
     
+	dependson { "std.compat" }
+	enablemodules("On")
+	buildstlmodules("On")
+    
+    pchheader "pch.h"
+    pchsource "%{wks.location}/Includes/pch.cpp"
+    
+    files {
+        "%{wks.location}/Includes/**.h", 
+        "%{wks.location}/Includes/**.cpp", 
+    }
+    
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+    
 	includedirs {
         "%{wks.location}/Includes",
-		"%{wks.location}/Engine/Source",
 		"%{wks.location}/Core",
 		"%{wks.location}/Core/CoreTypes",
 		"%{wks.location}/Core/ECS",
 		"%{wks.location}/Core/Time",
 		"%{wks.location}/Core/Utils"
 	}
-    
-    forceincludes {
-        "pch.h"
-    }
-    
+        
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
-		toolset "msc-v143"
 		buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
-		defines { "CONFIG_PLATFORM_WINDOWS", "ENGINE_EXPORTS"}
+		defines { "CONFIG_PLATFORM_WINDOWS" }
 
 	filter "system:linux"
-		buildoptions { "-Wall", "-Wextra", "-std=c++20" }
+		buildoptions { "-Wall", "-Wextra", "-std=c++23" }
 		links { "pthread", "dl" }
 		defines { "CONFIG_PLATFORM_LINUX" }
 	
@@ -37,10 +46,11 @@ workspace "GameEngineProject"
 
 outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
 
+group "Core"
+    include "Core/Build-Core.lua"
 
 group "Engine"
 	include "Engine/Build-Engine.lua"
-	include "Core/Build-Core.lua"
 	include "EngineModules/Build-Modules.lua"
 	
 group "Sandbox"

@@ -1,24 +1,16 @@
 local lfs = require("lfs")
 local luacom = require("luacom")
 
-local PREMAKE_FILES = {
-    "./Game/Build-Game.lua",
-    "./Engine/Build-Engine.lua",
-    "./Build.lua"
-}
-
 local NAME_Intermediates = "Intermediates"
 local NAME_Binaries = "Binaries"
 
 local PATH_sln = "\"GameEngineProject.sln\""
 local PATH_log = "./build_log.txt"
-local PATH_premake_folder = ".\\Vendor\\Binaries\\Premake\\Windows\\"
 local CMD_premake = "Premake5.exe --file=Build.lua vs2022"
 local CMD_msbuild = "MSBuild.exe %s /p:Configuration=%s /v:%s"
 
 local ARG_clean = "clean"
 local ARG_gen = "gen"
-local ARG_forcegen = "forcegen"
 local ARG_build = "build"
 local ARG_help = "help"
 local ARG_config = "config="
@@ -168,7 +160,7 @@ end
 
 -- run premake
 local function handle_gen()
-    local premake_call = PATH_premake_folder .. CMD_premake
+    local premake_call = CMD_premake
     
     print(string.format("Calling premake... \n\n%s", CMD_premake))
     local success, output, exit_type, exit_code = run_command(premake_call)

@@ -1,7 +1,7 @@
 project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "C++20"
+	cppdialect "C++23"
 	staticruntime "off"
 	location "%{wks.location}/Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
@@ -9,17 +9,19 @@ project "Sandbox"
 
 	links { "Core", "Engine" }
 	dependson { "Engine" }
-
-	files { 
-		"Source/**.h", 
-		"Source/**.cpp"
-	}
-
-    forceincludes {
-        "Core.h"
+	
+    files { 
+        "%{prj.location}/**.h", 
+        "%{prj.location}/**.cpp"
     }
+    
+    filter {"files:**.h"}
+        forceincludes { "Core.h" }
+
 	includedirs {
-		"%{prj.location}Source"
+		"%{prj.location}/Source",
+		"%{wks.location}/Engine",
+        "%{wks.location}/Engine/Source",
 	}
 
 	filter "system:windows"

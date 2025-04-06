@@ -1,5 +1,5 @@
 #pragma once
-#include "cstdint"
+import std.compat;
 
 // Signed integers
 using int8  = int8_t;
@@ -18,23 +18,3 @@ using TypeIndex = std::type_index;
 template <typename T> using TSharedPtr = std::shared_ptr<T>;
 template <typename T> using TUniquePtr = std::unique_ptr<T>;
 template <typename T> using TWeakPtr = std::weak_ptr<T>;
-
-//==========================================================//
-
-enum class ETickGroup : uint8
-{
-	None
-};
-
-enum class EEngineState : uint8
-{
-	None,
-	Running,
-	ExitRequested
-};
-
-enum class EExitCode : uint8
-{
-	None,
-	CODE_ERROR
-};

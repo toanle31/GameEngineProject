@@ -1,30 +1,32 @@
 project "Engine"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++20"
+	cppdialect "C++23"
 	staticruntime "off"
 	location "%{wks.location}/Engine"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
     
-	links { "Core" }
-    
-    forceincludes {
-        "Core.h"
-    }
-    
+	links { "Core", "Renderer"}
+	
 	files { 
-		"Source/**.h", 
-		"Source/**.cpp",
-		"EnginePCH.h"
+		"{%prj.location}/Source/**.h", 
+		"{%prj.location}/Source/**.cpp",
+		"{%prj.location}/Dependencies/**.h",
+		"{%prj.location}/Dependencies/**.cpp",
 	}
 
+    filter {"files:**.h"}
+        forceincludes { "Core.h" }
+
 	includedirs {
+		"{%prj.location}/Dependencies",
 		"{%prj.location}/Source",
 		"{%prj.location}/Source/EngineTypes",
 		"{%prj.location}/Source/Interfaces",
 		"{%prj.location}/Source/UI",
-		"{%prj.location}/Source/Utils"
+		"{%prj.location}/Source/Utils",
+		"{%wks.location}/EngineModules",
 	}
 
 	filter "system:windows"
@@ -35,18 +37,18 @@ project "Engine"
 		links { "dl", "pthread" }
 
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "BUILD_DEBUG"}
+		defines { "ENGINE_SHARED", "CONFIG_DEBUG"}
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines { "BUILD_RELEASE"}
+		defines { "CONFIG_RELEASE"}
 		runtime "Release"
 		optimize "On"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines { "BUILD_DIST"}
+		defines { "CONFIG_DIST"}
 		runtime "Release"
 		optimize "On"
 		symbols "Off"
