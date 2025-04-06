@@ -1,5 +1,4 @@
 project "Core"
-	kind "StaticLib"
 	language "C++"
 	cppdialect "C++23"
 	staticruntime "off"
@@ -8,9 +7,12 @@ project "Core"
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
     
 	files { 
-		"%{prj.location}/**.h", 
-		"%{prj.location}/**.cpp",
+		"%{prj.location}**.h", 
+		"%{prj.location}**.cpp",
 	}
+    
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
     
 	filter "system:windows"
 		systemversion "latest"
@@ -24,14 +26,17 @@ project "Core"
 		defines { "CORE_SHARED", "CONFIG_DEBUG" }
 		runtime "Debug"
 		symbols "On"
+		optimize "Off"
 
-	filter "configurations:Release" 
+	filter "configurations:Development"
+	    kind "StaticLib" 
 		defines { "CONFIG_RELEASE"}
 		runtime "Release"
 		optimize "On"
 		symbols "On"
 
-	filter "configurations:Development"
+	filter "configurations:Release"
+	    kind "StaticLib"
 		defines { "CONFIG_DEVELOPMENT"}
 		runtime "Release"
 		optimize "On"

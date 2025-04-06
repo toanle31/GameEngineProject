@@ -6,16 +6,18 @@ project "Sandbox"
 	location "%{wks.location}/Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
-
-	links { "Core", "Engine" }
-	dependson { "Engine" }
+	
+	links { "Engine" }
 	
     files { 
-        "%{prj.location}/**.h", 
-        "%{prj.location}/**.cpp"
+        "%{prj.location}**.h", 
+        "%{prj.location}**.cpp"
     }
     
-    filter {"files:**.h"}
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+    
+    filter "files:**.h"
         forceincludes { "Core.h" }
 
 	includedirs {
@@ -28,18 +30,18 @@ project "Sandbox"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "BUILD_DEBUG" }
+		defines { "CONFIG_DEBUG" }
 		runtime "Debug"
 		symbols "On"
 
-	filter "configurations:Release"
-		defines { "RELEASE" }
-		runtime "Release"
-		optimize "On"
-		symbols "On"
+	filter "configurations:Development"
+        defines { "CONFIG_RELEASE"}
+        runtime "Release"
+        optimize "On"
+        symbols "On"
 
-	filter "configurations:Dist"
-		defines { "DIST" }
-		runtime "Release"
-		optimize "On"
-		symbols "Off"
+	filter "configurations:Release"
+        defines { "CONFIG_DEVELOPMENT"}
+        runtime "Release"
+        optimize "On"
+        symbols "Off"

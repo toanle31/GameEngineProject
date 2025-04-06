@@ -17,9 +17,6 @@ workspace "GameEngineProject"
         "%{wks.location}/Includes/**.cpp", 
     }
     
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
-    
 	includedirs {
         "%{wks.location}/Includes",
 		"%{wks.location}/Core",
@@ -32,6 +29,7 @@ workspace "GameEngineProject"
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
 		buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
+		linkoptions { "/DLL" }
 		defines { "CONFIG_PLATFORM_WINDOWS" }
 
 	filter "system:linux"
@@ -43,9 +41,8 @@ workspace "GameEngineProject"
 		buildoptions { "/LDd" }
 		defines { "_DEBUG" }
 		intrinsics "On"
-
-outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
-
+    outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
+    
 group "Core"
     include "Core/Build-Core.lua"
 
