@@ -5,6 +5,7 @@
 **/Intermediates
 **/obj
 .idea/
+*.user
 
 # Visual Studio files and folder
 .vs/
