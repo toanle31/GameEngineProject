@@ -3,10 +3,11 @@ project "Engine"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	targetdir "%{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
-	objdir "%{wks.location}/Engine/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
-	pchheader "pch.h"
-	pchsource "Source/Core/Includes/pch.cpp"
+	location "%{wks.location}/Engine"
+	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+
+	links { "Core" }
 
 	files { 
 		"Source/**.h", 
@@ -14,18 +15,11 @@ project "Engine"
 	}
 
 	includedirs {
-		"%{wks.location}/Engine/Source", 
-		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Core/Includes",
-		"%{wks.location}/Engine/Source/Core/CoreTypes",
-		"%{wks.location}/Engine/Source/Engine",
-		"%{wks.location}/Engine/Source/Engine/EngineTypes",
-		"%{wks.location}/Engine/Source/Input",
-		"%{wks.location}/Engine/Source/Networking",
-		"%{wks.location}/Engine/Source/Physics",
-		"%{wks.location}/Engine/Source/Renderer",
-		"%{wks.location}/Engine/Source/UI",
-		"%{wks.location}/Engine/Source/Utils",
+		"{%prj.location}/Source",
+		"{%prj.location}/Source/EngineTypes",
+		"{%prj.location}/Source/Interfaces",
+		"{%prj.location}/Source/UI",
+		"{%prj.location}/Source/Utils"
 	}
 
 	filter "system:windows"

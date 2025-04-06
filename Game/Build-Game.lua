@@ -4,8 +4,10 @@ project "Game"
 	cppdialect "C++20"
 	staticruntime "off"
 	dependson { "Engine" }
-	targetdir "%{wks.location}/Game/Binaries/%{cfg.buildcfg}/%{cfg.architecture}"
-	objdir "%{wks.location}/Game/Intermediates/%{cfg.buildcfg}/%{cfg.architecture}"
+	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+
+	links { "Core", "Engine" }
 
 	files { 
 		"Source/**.h", 
@@ -16,10 +18,8 @@ project "Game"
 		"%{wks.location}/Game/Source",
 		"%{wks.location}/Engine/Source",
 		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Core/Includes",
+		"%{wks.location}/Engine/Source/Core/Includes"
 	}
-
-	links { "Engine" }
 
 	filter "system:windows"
 		systemversion "latest"

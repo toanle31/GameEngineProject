@@ -1,11 +1,8 @@
 #pragma once
 
-namespace Core
-{
-class ENGINE_API Application
+class Application
 {
 public:
 	~Application() = default;
 	int32 ApplicationMain();
 };
-}

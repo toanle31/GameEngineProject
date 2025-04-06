@@ -2,15 +2,18 @@
 workspace "GameEngineProject"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
-	postbuildcommands {
-        "{COPY} %{wks.location}/Engine/Binaries/%{cfg.buildcfg}/%{cfg.architecture}/Engine.dll %{wks.location}/Game/Binaries/%{cfg.buildcfg}/%{cfg.architecture}/"
-    }
-	
-	startproject "Game"
 	platforms { "Windows-x64", "Linux-x64" }
+	startproject "Game"
 
-	filter "files:**/Source/**.cpp"
-    	forceincludes { "pch.h" }
+	pchheader "pch/pch.h"
+	pchsource "pch/pch.cpp"
+	forceincludes { "pch.h" }
+
+	includedirs {
+		"Engine/Source",
+		"Engine/Modules/Core/",
+		"Engine/Modules/Core/CoreTypes"
+	}
 
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
@@ -28,7 +31,10 @@ workspace "GameEngineProject"
 		defines { "_DEBUG" }
 		intrinsics "On"
 
+outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
 group "Engine"
 	include "Engine/Build-Engine.lua"
+	include "Engine/Build-Modules.lua"
+
 group "Game"
 	include "Game/Build-Game.lua"

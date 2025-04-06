@@ -4,6 +4,7 @@
 **/Binaries
 **/Intermediates
 **/obj
+.idea/
 
 # Visual Studio files and folder
 .vs/

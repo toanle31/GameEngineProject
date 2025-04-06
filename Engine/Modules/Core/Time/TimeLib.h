@@ -5,7 +5,7 @@ using SysClock = std::chrono::system_clock;
 using EngineClock = std::chrono::high_resolution_clock;
 
 template <class ClockType>
-class ENGINE_API BonkTimeLib
+class BonkTimeLib
 {
 public:
 	using Clock = ClockType;
@@ -18,13 +18,13 @@ public:
 	}
 };
 
-class ENGINE_API DateTime : public BonkTimeLib<SysClock>
+class DateTime : public BonkTimeLib<SysClock>
 {
 public:
 
 };
 
-class ENGINE_API SystemTime : public BonkTimeLib<EngineClock>
+class SystemTime : public BonkTimeLib<EngineClock>
 {
 public:
 
