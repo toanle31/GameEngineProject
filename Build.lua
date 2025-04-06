@@ -3,14 +3,14 @@ workspace "GameEngineProject"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
 	platforms { "Windows-x64", "Linux-x64" }
-	startproject "Game"
-
-	pchheader "%{wks.location}/pch/pch.h"
-	pchsource "%{wks.location}/pch/pch.cpp"
-	forceincludes { "%{wks.location}/pch/pch.h" }
-
+	pchheader "pch.h"
+	pchsource "pch.cpp"	
+    startproject "Game"
+    
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+    
 	includedirs {
-        "%{wks.location}/pch",
 		"%{wks.location}/Engine/Source",
 		"%{wks.location}/Engine/Modules/Core",
 		"%{wks.location}/Engine/Modules/Core/CoreTypes",
@@ -36,9 +36,15 @@ workspace "GameEngineProject"
 		intrinsics "On"
 
 outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
+
+groupd "Core"
+    include "Core/Build-Core.lua"
+    
 group "Engine"
 	include "Engine/Build-Engine.lua"
-	include "Engine/Build-Modules.lua"
-
-group "Game"
-	include "Game/Build-Game.lua"
+	
+groupd "EngineModules"
+    include "EngineModules/Build-Modules.lua"
+	
+group "Sandbox"
+	include "Sandbox/Build-Sandbox.lua"

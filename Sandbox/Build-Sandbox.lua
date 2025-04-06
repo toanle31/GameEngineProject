@@ -1,9 +1,9 @@
-project "Game"
+project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	location "%{wks.location}/Game"
+	location "%{wks.location}/Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 

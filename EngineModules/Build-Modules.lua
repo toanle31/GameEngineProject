@@ -1,28 +1,19 @@
-project "Engine"
+project "Renderer"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	location "%{wks.location}/Engine"
+	location "%{wks.location}/EngineModules/Renderer"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 
 	links { "Core" }
-    dependson { "Core" }
-    
+
 	files { 
-		"Source/**.h", 
-		"Source/**.cpp"
+		"%{prj.location}/**.h", 
+		"%{prj.location}/**.cpp"
 	}
-
-	includedirs {
-		"{%prj.location}/Source",
-		"{%prj.location}/Source/EngineTypes",
-		"{%prj.location}/Source/Interfaces",
-		"{%prj.location}/Source/UI",
-		"{%prj.location}/Source/Utils"
-	}
-
+    
 	filter "system:windows"
 		systemversion "latest"
 
