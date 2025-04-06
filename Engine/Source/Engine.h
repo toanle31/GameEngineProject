@@ -1,5 +1,4 @@
 #pragma once
-#include "Interfaces\ProductInterface.h"
 
 /*
 * Using dependency injection AND context object.
@@ -7,9 +6,8 @@
 * Which will allow
 */
 
-class ENGINE_API Engine final : public ISingletonProduct
+class ENGINE_API Engine final
 {
-	DECLARE_SINGLETON_PRODUCT(Engine)
 private:
 	// Dependencies here
 

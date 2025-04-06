@@ -1,7 +1,7 @@
 #pragma once
 
 struct Entity;
-class ENGINE_API SystemBase
+class SystemBase
 {
 public:
 	virtual ~SystemBase() = default;

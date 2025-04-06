@@ -7,7 +7,7 @@
 #include "widemath.h"
 #include <typeinfo>
 
-#include "Core/Includes/Core.h"
-#include "Core/EngineTypes.h"
+#include "Core.h"
+#include "CoreTypeDefines.h"
 #include "Utils/Assertions.h"
 #include "Utils/Log.h"

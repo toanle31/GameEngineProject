@@ -3,11 +3,12 @@ project "Game"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	dependson { "Engine" }
+	location "%{wks.location}/Game"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 
 	links { "Core", "Engine" }
+	dependson { "Engine" }
 
 	files { 
 		"Source/**.h", 
@@ -15,10 +16,7 @@ project "Game"
 	}
 
 	includedirs {
-		"%{wks.location}/Game/Source",
-		"%{wks.location}/Engine/Source",
-		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Core/Includes"
+		"%{prj.location}Source"
 	}
 
 	filter "system:windows"

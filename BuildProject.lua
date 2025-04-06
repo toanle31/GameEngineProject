@@ -8,10 +8,9 @@ local PREMAKE_FILES = {
 }
 
 local NAME_Intermediates = "Intermediates"
+local NAME_Binaries = "Binaries"
 
 local PATH_sln = "\"GameEngineProject.sln\""
-local PATH_Game = "./Game/"
-local PATH_Engine = "./Engine/"
 local PATH_log = "./build_log.txt"
 local PATH_premake_folder = ".\\Vendor\\Binaries\\Premake\\Windows\\"
 local CMD_premake = "Premake5.exe --file=Build.lua vs2022"
@@ -209,7 +208,6 @@ local function handle_help()
 end
 
 local function remove_dir(path)
-    print(string.format("Deleting %s", path))
     for file in lfs.dir(path) do
         if file ~= "." and file ~= ".." then
             local fullPath = path .. "/" .. file
@@ -217,20 +215,23 @@ local function remove_dir(path)
             if attr.mode == "directory" then
                 -- Recursively remove the directory
                 remove_dir(fullPath)
+                print(string.format("Deleting %s", fullPath))
             else
                 -- Remove the file
                 os.remove(fullPath)
+                print(string.format("Deleting %s", fullPath))
             end
         end
     end
     -- Remove the empty directory
+    print(string.format("Deleting %s", path))
     lfs.rmdir(path)
 end
 
 local function handle_clean()
     local dirs = {
-        PATH_Game .. NAME_Intermediates,
-        PATH_Engine .. NAME_Intermediates
+        "./" .. NAME_Intermediates,
+        "./" .. NAME_Binaries
     }
 
     for i = 1, #dirs, 1 do

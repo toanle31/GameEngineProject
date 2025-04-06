@@ -5,14 +5,18 @@ workspace "GameEngineProject"
 	platforms { "Windows-x64", "Linux-x64" }
 	startproject "Game"
 
-	pchheader "pch/pch.h"
-	pchsource "pch/pch.cpp"
-	forceincludes { "pch.h" }
+	pchheader "%{wks.location}/pch/pch.h"
+	pchsource "%{wks.location}/pch/pch.cpp"
+	forceincludes { "%{wks.location}/pch/pch.h" }
 
 	includedirs {
-		"Engine/Source",
-		"Engine/Modules/Core/",
-		"Engine/Modules/Core/CoreTypes"
+        "%{wks.location}/pch",
+		"%{wks.location}/Engine/Source",
+		"%{wks.location}/Engine/Modules/Core",
+		"%{wks.location}/Engine/Modules/Core/CoreTypes",
+		"%{wks.location}/Engine/Modules/Core/ECS",
+		"%{wks.location}/Engine/Modules/Core/Time",
+		"%{wks.location}/Engine/Modules/Core/Utils"
 	}
 
 	 -- Workspace-wide build options for MSVC

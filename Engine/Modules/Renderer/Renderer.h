@@ -1,9 +1,7 @@
 #pragma once
-#include "Interfaces\ProductInterface.h"
 
-class ENGINE_API Renderer final : public ISingletonProduct
+class Renderer final
 {
-	DECLARE_SINGLETON_PRODUCT(Renderer)
 public:
 	~Renderer() = default;
 	void Initialize();

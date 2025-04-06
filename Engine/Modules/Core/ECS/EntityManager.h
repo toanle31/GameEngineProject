@@ -1,10 +1,9 @@
 #pragma once
 
-struct Entity;
 /*
 * Manages all entity including the World Entity itself.
 */
-class ENGINE_API EntityManager
+class EntityManager
 {
 public:
 	virtual ~EntityManager() = default;

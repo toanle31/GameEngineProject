@@ -12,6 +12,13 @@ project "Core"
 		"%{prj.location}/**.cpp" 
 	}
 
+    includedirs {
+        "%{prj.location}/CoreTypes",
+        "%{prj.location}/ECS",
+        "%{prj.location}/Time",
+        "%{prj.location}/Utils"
+    }
+    
 	filter "system:windows"
 		systemversion "latest"
 

@@ -6,10 +6,7 @@
 #if !DIST_BUILD
 #define DEBUG_BREAK __debugbreak();
 #define EnsureMsg(Condition, Msg) \
-	if (!Condition) \
-	{\
-		DEBUG_BREAK\
-	}
+	((Condition) ? true : (std::err << "Assertion failed: " << Msg << std::endl; DEBUG_BREAK; false))
 #define Check(Condition) \
 	if (!Condition) \
 	{\

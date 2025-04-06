@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Core/EngineTypes.h"
-
-struct ENGINE_API Entity
+struct Entity
 {
 	uint64 EntityId;
 };

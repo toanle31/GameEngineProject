@@ -2,7 +2,7 @@
 
 #include "SystemTypes.h"
 
-class ENGINE_API SystemManager
+class SystemManager
 {
 public:
 
