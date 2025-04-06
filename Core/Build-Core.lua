@@ -6,8 +6,13 @@ project "Core"
 	location "%{wks.location}/Core"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
-
+    
+    pchheader "pch.h"
+    pchsource "%{wks.location}/Includes/pch.cpp"
+    
 	files { 
+        "%{wks.location}/Includes/pch.h",
+        "%{wks.location}/Includes/pch.cpp",
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp" 
 	}
@@ -27,7 +32,6 @@ project "Core"
 		links { "dl", "pthread" }
 
 	filter "configurations:Debug"
-		kind "SharedLib"
 		defines { "BUILD_SHARED", "BUILD_DEBUG"}
 		runtime "Debug"
 		symbols "On"

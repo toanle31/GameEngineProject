@@ -2,23 +2,23 @@
 workspace "GameEngineProject"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
-	platforms { "Windows-x64", "Linux-x64" }
-	pchheader "pch.h"
-	pchsource "pch.cpp"	
-    startproject "Game"
-    
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
+	platforms { "Windows-x64", "Linux-x64" }	
+    startproject "Sandbox"
     
 	includedirs {
+        "%{wks.location}/Includes",
 		"%{wks.location}/Engine/Source",
-		"%{wks.location}/Engine/Modules/Core",
-		"%{wks.location}/Engine/Modules/Core/CoreTypes",
-		"%{wks.location}/Engine/Modules/Core/ECS",
-		"%{wks.location}/Engine/Modules/Core/Time",
-		"%{wks.location}/Engine/Modules/Core/Utils"
+		"%{wks.location}/Core",
+		"%{wks.location}/Core/CoreTypes",
+		"%{wks.location}/Core/ECS",
+		"%{wks.location}/Core/Time",
+		"%{wks.location}/Core/Utils"
 	}
-
+    
+    forceincludes {
+        "pch.h"
+    }
+    
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
 		toolset "msc-v143"
@@ -37,14 +37,11 @@ workspace "GameEngineProject"
 
 outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
 
-groupd "Core"
-    include "Core/Build-Core.lua"
-    
+
 group "Engine"
 	include "Engine/Build-Engine.lua"
-	
-groupd "EngineModules"
-    include "EngineModules/Build-Modules.lua"
+	include "Core/Build-Core.lua"
+	include "EngineModules/Build-Modules.lua"
 	
 group "Sandbox"
 	include "Sandbox/Build-Sandbox.lua"

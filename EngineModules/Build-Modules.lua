@@ -8,7 +8,11 @@ project "Renderer"
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 
 	links { "Core" }
-
+    
+    forceincludes {
+        "Core.h"
+    }
+            
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp"
@@ -22,7 +26,6 @@ project "Renderer"
 		links { "dl", "pthread" }
 
 	filter "configurations:Debug"
-		kind "SharedLib"
 		defines { "BUILD_SHARED", "BUILD_DEBUG"}
 		runtime "Debug"
 		symbols "On"

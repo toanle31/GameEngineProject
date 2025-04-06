@@ -6,13 +6,17 @@ project "Engine"
 	location "%{wks.location}/Engine"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
-
+    
 	links { "Core" }
-    dependson { "Core" }
+    
+    forceincludes {
+        "Core.h"
+    }
     
 	files { 
 		"Source/**.h", 
-		"Source/**.cpp"
+		"Source/**.cpp",
+		"EnginePCH.h"
 	}
 
 	includedirs {
@@ -31,7 +35,6 @@ project "Engine"
 		links { "dl", "pthread" }
 
 	filter "configurations:Debug"
-		kind "SharedLib"
 		defines { "BUILD_SHARED", "BUILD_DEBUG"}
 		runtime "Debug"
 		symbols "On"

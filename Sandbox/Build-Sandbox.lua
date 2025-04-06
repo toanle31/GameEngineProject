@@ -15,6 +15,9 @@ project "Sandbox"
 		"Source/**.cpp"
 	}
 
+    forceincludes {
+        "Core.h"
+    }
 	includedirs {
 		"%{prj.location}Source"
 	}
