@@ -6,16 +6,6 @@ workspace "GameEngineProject"
 	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }	
 		
     startproject "Sandbox"
-	enablemodules("On")
-	buildstlmodules("On")
-    dependson {"std.compat"}
-    pchheader "pch.h"
-    pchsource "%{wks.location}/Includes/pch.cpp"
-    
-    files {
-        "%{wks.location}/Includes/**.h", 
-        "%{wks.location}/Includes/**.cpp",
-    }
     
 	includedirs {
         "%{wks.location}/Includes",
@@ -26,6 +16,9 @@ workspace "GameEngineProject"
 		"%{wks.location}/Core/Utils"
 	}
     
+	filter { "files:**.h", "files:not **Core.h", "files:not **/Includes/**" }
+	    forceincludes { "Core.h" }
+	
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
 	    systemversion "latest"

@@ -7,13 +7,16 @@ project "Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 	defines { "SANDBOX" }
-	linkgroups "On"
 	
 	filter "configurations:*Lib"
-	    links { "Core:*Lib", "Engine:*Lib" }
+	    links { "Engine:*Lib" }
 	
 	filter "configurations:*DLL"
-    	    links { "Core:*DLL", "Engine:*DLL" }
+    	    links { "Engine:*DLL" }
+    
+    filter "configurations:*"
+        links { "Core", "Engine" }
+        dependson { "Core", "Engine" }
     
     files { 
         "%{prj.location}/**.h", 
@@ -22,9 +25,6 @@ project "Sandbox"
     
     filter "files:**.cpp"
         forceincludes { "pch.h" }
-    
-    filter "files:**.h"
-        forceincludes { "Core.h" }
 
 	includedirs {
 		"%{prj.location}/Source",

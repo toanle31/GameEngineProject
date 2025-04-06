@@ -1,11 +1,5 @@
 #pragma once
 
-/*
-* Using dependency injection AND context object.
-* Engine will depend on a CORESYSTEMSCONTEXT.
-* Which will allow
-*/
-
 class ENGINE_API Engine final
 {
 private:

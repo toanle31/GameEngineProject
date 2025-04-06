@@ -2,13 +2,11 @@
 
 import std.compat;
 
-// Signed integers
 using int8 = int8_t;
 using int16 = int16_t;
 using int32 = int32_t;
 using int64 = int64_t;
 
-// Unsigned integers
 using uint8  = uint8_t;
 using uint16 = uint16_t;
 using uint32 = uint32_t;

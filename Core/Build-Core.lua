@@ -7,6 +7,18 @@ project "Core"
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
     defines { "CORE" }
     
+    dependson {"std.compat"}
+    enablemodules("On")
+    buildstlmodules("On")
+    
+    pchheader "pch.h"
+    pchsource "%{wks.location}/Includes/pch.cpp"
+    
+    files {
+        "%{wks.location}/Includes/**.h", 
+        "%{wks.location}/Includes/**.cpp",
+    }
+    
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp",
@@ -14,3 +26,6 @@ project "Core"
     
     filter "files:**.cpp"
         forceincludes { "pch.h" }
+    
+    filter "configurations:*"
+            kind "StaticLib"

@@ -8,12 +8,10 @@ project "Engine"
     defines { "ENGINE" }
     linkgroups "On"
     
-    filter "configurations:*Lib"
-        links { "Core:*Lib", "Renderer:*Lib" }
-    
-    filter "configurations:*DLL"
-        links { "Core:*DLL", "Renderer:*DLL" }
-    
+    filter "configurations:*"
+        links { "Core", "Renderer"}
+        dependson { "Core" }
+            
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp"
@@ -21,9 +19,6 @@ project "Engine"
 
     filter "files:**.cpp"
         forceincludes { "pch.h" }
-
-    filter "files:**.h"
-        forceincludes { "Core.h" }
 
 	includedirs {
 		"%{prj.location}/Dependencies",
