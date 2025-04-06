@@ -1,52 +1,43 @@
-project "Engine"
-	kind "StaticLib"
+project "Sandbox"
+	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	location "%{wks.location}/Engine"
+	location "%{wks.location}/Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
-    
-	links { "Core" }
-    
+
+	links { "Core", "Engine" }
+	dependson { "Engine" }
+
+	files { 
+		"Source/**.h", 
+		"Source/**.cpp"
+	}
+
     forceincludes {
         "Core.h"
     }
-    
-	files { 
-		"Source/**.h", 
-		"Source/**.cpp",
-		"EnginePCH.h"
-	}
-
 	includedirs {
-		"{%prj.location}/Source",
-		"{%prj.location}/Source/EngineTypes",
-		"{%prj.location}/Source/Interfaces",
-		"{%prj.location}/Source/UI",
-		"{%prj.location}/Source/Utils"
+		"%{prj.location}Source"
 	}
 
 	filter "system:windows"
 		systemversion "latest"
 
-	filter "system:linux"
-		systemversion "latest"
-		links { "dl", "pthread" }
-
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "BUILD_DEBUG"}
+		defines { "BUILD_SHARED", "BUILD_DEBUG" }
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines { "BUILD_RELEASE"}
+		defines { "RELEASE" }
 		runtime "Release"
 		optimize "On"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines { "BUILD_DIST"}
+		defines { "DIST" }
 		runtime "Release"
 		optimize "On"
 		symbols "Off"

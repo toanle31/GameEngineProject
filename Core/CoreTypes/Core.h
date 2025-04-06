@@ -32,3 +32,7 @@
 #else
 	#define DIST_BUILD 0
 #endif
+
+#include "CoreTypeDefines.h"
+#include "Assertions.h"
+#include "Log.h"

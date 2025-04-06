@@ -1,42 +1,43 @@
-project "Game"
-	kind "ConsoleApp"
+project "Renderer"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "off"
-	dependson { "Engine" }
+	location "%{wks.location}/EngineModules/Renderer"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 
-	links { "Core", "Engine" }
-
+	links { "Core" }
+    
+    forceincludes {
+        "Core.h"
+    }
+            
 	files { 
-		"Source/**.h", 
-		"Source/**.cpp"
+		"%{prj.location}/**.h", 
+		"%{prj.location}/**.cpp"
 	}
-
-	includedirs {
-		"%{wks.location}/Game/Source",
-		"%{wks.location}/Engine/Source",
-		"%{wks.location}/Engine/Source/Core",
-		"%{wks.location}/Engine/Source/Core/Includes"
-	}
-
+    
 	filter "system:windows"
 		systemversion "latest"
 
+	filter "system:linux"
+		systemversion "latest"
+		links { "dl", "pthread" }
+
 	filter "configurations:Debug"
-		defines { "BUILD_SHARED", "BUILD_DEBUG" }
+		defines { "BUILD_SHARED", "BUILD_DEBUG"}
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines { "RELEASE" }
+		defines { "BUILD_RELEASE"}
 		runtime "Release"
 		optimize "On"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines { "DIST" }
+		defines { "BUILD_DIST"}
 		runtime "Release"
 		optimize "On"
 		symbols "Off"
