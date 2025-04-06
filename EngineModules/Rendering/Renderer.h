@@ -1,6 +1,6 @@
 #pragma once
 
-class Renderer final
+class RENDERING_API Renderer final
 {
 public:
 	~Renderer() = default;

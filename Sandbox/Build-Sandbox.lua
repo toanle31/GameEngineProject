@@ -6,12 +6,18 @@ project "Sandbox"
 	location "%{wks.location}/Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+	defines { "SANDBOX" }
+	linkgroups "On"
 	
-	links { "Engine" }
+	filter "configurations:*Lib"
+	    links { "Core:*Lib", "Engine:*Lib" }
 	
+	filter "configurations:*DLL"
+    	    links { "Core:*DLL", "Engine:*DLL" }
+    
     files { 
-        "%{prj.location}**.h", 
-        "%{prj.location}**.cpp"
+        "%{prj.location}/**.h", 
+        "%{prj.location}/**.cpp"
     }
     
     filter "files:**.cpp"
@@ -25,23 +31,6 @@ project "Sandbox"
 		"%{wks.location}/Engine",
         "%{wks.location}/Engine/Source",
 	}
-
-	filter "system:windows"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		defines { "CONFIG_DEBUG" }
-		runtime "Debug"
-		symbols "On"
-
-	filter "configurations:Development"
-        defines { "CONFIG_RELEASE"}
-        runtime "Release"
-        optimize "On"
-        symbols "On"
-
-	filter "configurations:Release"
-        defines { "CONFIG_DEVELOPMENT"}
-        runtime "Release"
-        optimize "On"
-        symbols "Off"
+    
+    filter "configurations:*"
+        kind "ConsoleApp"

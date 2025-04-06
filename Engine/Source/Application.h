@@ -1,6 +1,6 @@
 #pragma once
 
-class Application
+class ENGINE_API Application
 {
 public:
 	~Application() = default;

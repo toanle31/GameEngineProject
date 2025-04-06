@@ -1,21 +1,57 @@
 #pragma once
 
+enum class BUILD
+{
+    NONE,
+    DEBUG,
+    DEVELOPMENT,
+    RELEASE
+};
+
+enum class PLATFORM
+{
+    NONE,
+    WINDOWS,
+    LINUX
+};
+
+/* if constxpr (condition) { } */
+static constexpr BUILD CONFIG_BUILD =
 #ifdef CONFIG_DEBUG
-    #define BUILD_IS_DEBUG 1
+    BUILD::DEBUG;
+#elifdef CONFIG_DEVELOPMENT
+    BUILD::DEVELOPMENT;
+#elifdef CONFIG_RELEASE
+    BUILD::RELEASE;
 #else
-    #define BUILD_IS_DEBUG 0
+    BUILD:NONE;
 #endif
 
-#define BUILD_IS_DEVELOPMENT (defined(CONFIG_DEVELOPMENT) ? 1 : 0)
-#define BUILD_IS_RELEASE (defined(CONFIG_RELEASE) ? 1 : 0)
-
-#define PLATFORM_WINDOWS (defined(CONFIG_PLATFORM_WINDOWS) ? 1 : 0)
-#define PLATFORM_LINUX (defined(CONFIG_PLATFORM_LINUX) ? 1 : 0)
-
+static constexpr PLATFORM CONFIG_PLATFORM =
 #ifdef CONFIG_PLATFORM_WINDOWS
-    #define CORE_API (defined(CORE_SHARED) ? __declspec(dllexport) : __declspec(dllimport))
-    #define ENGINE_API (defined(ENGINE_SHARED) ? __declspec(dllexport) : __declspec(dllimport))
-    #define RENDERING_API (defined(RENDER_SHARED) ? __declspec(dllexport) : __declspec(dllimport))
+    PLATFORM::WINDOWS;
+#elifdef CONFIG_PLATFORM_LINUX
+    PLATFORM::LINUX;
+#else
+    PLATFORM::NONE;
+#endif
+
+#if defined(CONFIG_PLATFORM_WINDOWS) && defined(CONFIG_SHAREDLIB)
+    #ifdef ENGINE
+        #define ENGINE_API __declspec(dllexport)
+    #else
+        #define ENGINE_API __declspec(dllimport)
+    #endif
+    #ifdef CORE
+        #define CORE_API __declspec(dllexport)
+    #else
+        #define CORE_API __declspec(dllimport)
+    #endif
+    #ifdef RENDERING
+        #define RENDERING_API __declspec(dllexport)
+    #else
+        #define RENDERING_API __declspec(dllimport)
+    #endif
 #else
     #define ENGINE_API
     #define CORE_API

@@ -5,12 +5,17 @@ project "Renderer"
 	location "%{wks.location}/EngineModules/Rendering"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+	defines { "RENDERING" }
 	
-	links { "Core" }
+    filter "configurations:*Lib"
+        links { "Core:*Lib" }
+    
+    filter "configurations:*DLL"
+            links { "Core:*DLL" }
 	
 	files { 
-		"%{prj.location}**.h", 
-		"%{prj.location}**.cpp"
+		"%{prj.location}/**.h", 
+		"%{prj.location}/**.cpp"
 	}
 
     filter "files:**.cpp"
@@ -18,31 +23,3 @@ project "Renderer"
 
     filter "files:**.h"
         forceincludes { "Core.h" }
-    
-	filter "system:windows"
-		systemversion "latest"
-
-	filter "system:linux"
-		systemversion "latest"
-		links { "dl", "pthread" }
-
-	filter "configurations:Debug"
-    	    kind "SharedLib"
-    		defines { "CORE_SHARED", "CONFIG_DEBUG" }
-    		runtime "Debug"
-    		symbols "On"
-    		optimize "Off"
-    
-    filter "configurations:Development"
-        kind "StaticLib" 
-        defines { "CONFIG_RELEASE"}
-        runtime "Release"
-        optimize "On"
-        symbols "On"
-
-    filter "configurations:Release"
-        kind "StaticLib"
-        defines { "CONFIG_DEVELOPMENT"}
-        runtime "Release"
-        optimize "On"
-        symbols "Off"

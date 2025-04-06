@@ -5,12 +5,18 @@ project "Engine"
 	location "%{wks.location}/Engine"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+    defines { "ENGINE" }
+    linkgroups "On"
     
-    links { "Core", "Renderer" }
+    filter "configurations:*Lib"
+        links { "Core:*Lib", "Renderer:*Lib" }
+    
+    filter "configurations:*DLL"
+        links { "Core:*DLL", "Renderer:*DLL" }
     
 	files { 
-		"%{prj.location}**.h", 
-		"%{prj.location}**.cpp"
+		"%{prj.location}/**.h", 
+		"%{prj.location}/**.cpp"
 	}
 
     filter "files:**.cpp"
@@ -26,33 +32,5 @@ project "Engine"
 		"%{prj.location}/Source/Interfaces",
 		"%{prj.location}/Source/UI",
 		"%{prj.location}/Source/Utils",
-		"%{wks.location}/EngineModules",
+		"%{wks.location}/EngineModules"
 	}
-
-	filter "system:windows"
-		systemversion "latest"
-
-	filter "system:linux"
-		systemversion "latest"
-		links { "dl", "pthread" }
-
-	filter "configurations:Debug"
-    	    kind "SharedLib"
-    		defines { "CORE_SHARED", "CONFIG_DEBUG" }
-    		runtime "Debug"
-    		symbols "On"
-    		optimize "Off"
-    
-    filter "configurations:Development"
-        kind "StaticLib" 
-        defines { "CONFIG_RELEASE"}
-        runtime "Release"
-        optimize "On"
-        symbols "On"
-
-    filter "configurations:Release"
-        kind "StaticLib"
-        defines { "CONFIG_DEVELOPMENT"}
-        runtime "Release"
-        optimize "On"
-        symbols "Off"

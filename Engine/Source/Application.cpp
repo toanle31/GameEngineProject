@@ -2,6 +2,5 @@
 
 int32 Application::ApplicationMain()
 {
-	
 	return 0;
 }

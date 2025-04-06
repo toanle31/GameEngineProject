@@ -1,5 +1,8 @@
 #pragma once
 
-#include "TypeDefines.h"
+export module CORE;
+
+import std.compat;
 #include "Assertions.h"
 #include "Log.h"
+#include "TypeDefines.h"
