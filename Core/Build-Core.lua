@@ -7,25 +7,26 @@ project "Core"
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
     defines { "CORE" }
     
-    dependson {"std.compat"}
-    enablemodules("On")
-    buildstlmodules("On")
-    
     pchheader "pch.h"
     pchsource "%{wks.location}/Includes/pch.cpp"
     
-    files {
-        "%{wks.location}/Includes/**.h", 
-        "%{wks.location}/Includes/**.cpp",
-    }
+    filter "configurations:*"
+        kind "StaticLib"
     
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp",
+		"%{wks.location}/Includes/**.h", 
+        "%{wks.location}/Includes/**.cpp"
 	}
+    
+    prebuildcommands {
+        "cd ../__imports && cl.exe /std:c++latest /experimental:module /EHsc /MD /nologo /W4 /interface /c std.ixx std.compat.ixx"
+    }
+
+    buildoptions {
+        "/reference " .. "std=std.ifc",
+    }
     
     filter "files:**.cpp"
         forceincludes { "pch.h" }
-    
-    filter "configurations:*"
-            kind "StaticLib"

@@ -119,8 +119,10 @@ local function get_build_configuration()
     end)
 
     if not success then
-        config = "Debug"
+        config = "DebugLib"
     end
+
+    print("Using Config: " .. config)
 
     return config
 end

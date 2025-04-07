@@ -2,29 +2,37 @@
 workspace "GameEngineProject"
 	architecture "x64"
 	platforms { "Win64", "Linux64" }
+	startproject "Sandbox"
 	configurations { "DebugLib", "DevelopmentLib", "ReleaseLib", 
-	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }	
-		
-    startproject "Sandbox"
+	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }
+	linkgroups "On"	
+    rtti("On")
     
+    enablemodules("On")
 	includedirs {
-        "%{wks.location}/Includes",
+		"%{wks.location}/__imports",
+	    "%{wks.location}/Includes",
+		"%{wks.location}/Engine",
+		"%{wks.location}/Engine/Dependencies",
+		"%{wks.location}/Engine/Source",
+		"%{wks.location}/EngineModules/Rendering",
 		"%{wks.location}/Core",
 		"%{wks.location}/Core/CoreTypes",
-		"%{wks.location}/Core/ECS",
 		"%{wks.location}/Core/Time",
 		"%{wks.location}/Core/Utils"
 	}
-    
-	filter { "files:**.h", "files:not **Core.h", "files:not **/Includes/**" }
-	    forceincludes { "Core.h" }
-	
+
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
 	    systemversion "latest"
-		buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
+		buildoptions {
+		    "/std:c++latest",
+            "/EHsc", 
+            "/Zc:preprocessor", 
+            "/Zc:__cplusplus",
+            }
 		defines { "CONFIG_PLATFORM_WINDOWS" }
-
+        
 	filter "system:linux"
 	    systemversion "latest"
 		buildoptions { "-Wall", "-Wextra", "-std=c++23" }
@@ -54,10 +62,10 @@ workspace "GameEngineProject"
         kind "StaticLib"
     filter "configurations:*DLL"
         kind "SharedLib"
-        defines { "CONFIG_SHAREDLIB" }
 	    	
     outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
-    
+    importdir = "%{wks.location}/__imports"
+
 group "Core"
     include "Core/Build-Core.lua"
 

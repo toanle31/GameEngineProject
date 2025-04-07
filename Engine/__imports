@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "..\\Intermediates\\DebugDLL\\windows-x86_64\\Engine\\Win64\\pch.obj",
+            "outputs": [
+                "G:\\GameEngineProject\\Intermediates\\DebugDLL\\windows-x86_64\\Engine\\Win64\\vc143.pdb",
+                "__imports",
+                "..\\Intermediates\\DebugDLL\\windows-x86_64\\Engine\\Win64\\Engine.pch"
+            ],
+            "requires": [
+                {
+                    "logical-name": "std.compat"
+                }
+            ]
+        }
+    ]
+}

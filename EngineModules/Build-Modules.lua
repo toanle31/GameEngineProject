@@ -7,13 +7,16 @@ project "Renderer"
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 	defines { "RENDERING" }
 	
-	filter "configurations:*"
-        links { "Core" }
-        dependson { "Core" }
-	
 	files { 
-		"%{prj.location}/**.h", 
-		"%{prj.location}/**.cpp"
+        "%{prj.location}/**.h", 
+        "%{prj.location}/**.cpp"
+    }
+	
+	filter "configurations:*DLL"
+		defines { "CONFIG_SHAREDLIB" }
+
+	buildoptions {
+		"/reference " .. "std=std.ifc",
 	}
 
     filter "files:**.cpp"
