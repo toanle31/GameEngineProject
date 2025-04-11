@@ -1,5 +1,5 @@
 #pragma once
-#include <chrono>
+import std.compat;
 
 using SysClock = std::chrono::system_clock;
 using EngineClock = std::chrono::high_resolution_clock;

@@ -7,11 +7,11 @@ workspace "GameEngineProject"
 	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }
 	linkgroups "On"	
     rtti("On")
-    
     enablemodules("On")
+    buildstlmodules("On")
 	includedirs {
-		"%{wks.location}/__imports",
 	    "%{wks.location}/Includes",
+	    "%{wks.location}/Shared",
 		"%{wks.location}/Engine",
 		"%{wks.location}/Engine/Dependencies",
 		"%{wks.location}/Engine/Source",
@@ -24,20 +24,21 @@ workspace "GameEngineProject"
 
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
+	    defines { "CONFIG_PLATFORM_WINDOWS" }
 	    systemversion "latest"
 		buildoptions {
 		    "/std:c++latest",
             "/EHsc", 
             "/Zc:preprocessor", 
             "/Zc:__cplusplus",
+            --'/reference "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}/%{prj.name}/Win64/microsoft/STL/std.ifc"'
             }
-		defines { "CONFIG_PLATFORM_WINDOWS" }
-        
+
 	filter "system:linux"
+	    defines { "CONFIG_PLATFORM_LINUX" }
 	    systemversion "latest"
 		buildoptions { "-Wall", "-Wextra", "-std=c++23" }
 		links { "pthread", "dl" }
-		defines { "CONFIG_PLATFORM_LINUX" }
 	
     filter "*Debug*"
         defines { "CONFIG_DEBUG" }
@@ -60,11 +61,12 @@ workspace "GameEngineProject"
         
     filter "configurations:*Lib"
         kind "StaticLib"
+        implibdir ("%{wks.location}/Shared")
+
     filter "configurations:*DLL"
         kind "SharedLib"
 	    	
     outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
-    importdir = "%{wks.location}/__imports"
 
 group "Core"
     include "Core/Build-Core.lua"

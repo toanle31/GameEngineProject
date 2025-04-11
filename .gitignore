@@ -6,6 +6,7 @@
 **/obj
 .idea/
 *.user
+*.obj
 
 # Visual Studio files and folder
 .vs/

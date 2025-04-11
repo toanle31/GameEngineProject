@@ -6,7 +6,7 @@ project "Engine"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
     defines { "ENGINE" }
-   		
+   	dependson { "Core" }	
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp"
@@ -26,9 +26,5 @@ project "Engine"
 		"%{prj.location}/Source/UI"
 	}
 
-	buildoptions {
-		"/reference " .. "std=std.ifc",
-	}
-
     filter "files:**.cpp"
-        forceincludes { "pch.h" }
+        forceincludes { "pch.h", "Core.h"}

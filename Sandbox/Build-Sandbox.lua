@@ -7,7 +7,7 @@ project "Sandbox"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 	defines { "SANDBOX" }
-    
+
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
@@ -16,14 +16,10 @@ project "Sandbox"
 	filter "configurations:*"
         kind "ConsoleApp"
         links { "Core", "Engine" }
-        dependson {"Engine"}
+        dependson { "Core", "Engine"}
 
-	buildoptions {
-		"/reference " .. "std=std.ifc",
-	}
-	
 	filter "files:**.cpp"
-        forceincludes { "pch.h" }
+        forceincludes { "pch.h", "Core.h"}
 
 	includedirs {
 		"%{prj.location}/Source",

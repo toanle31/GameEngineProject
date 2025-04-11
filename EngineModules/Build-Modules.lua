@@ -6,6 +6,7 @@ project "Renderer"
 	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
 	defines { "RENDERING" }
+	dependson { "Core" }
 	
 	files { 
         "%{prj.location}/**.h", 
@@ -14,10 +15,6 @@ project "Renderer"
 	
 	filter "configurations:*DLL"
 		defines { "CONFIG_SHAREDLIB" }
-
-	buildoptions {
-		"/reference " .. "std=std.ifc",
-	}
-
+		
     filter "files:**.cpp"
-        forceincludes { "pch.h" }
+        forceincludes { "pch.h", "Core.h"}
