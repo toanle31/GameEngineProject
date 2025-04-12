@@ -7,13 +7,7 @@ project "Engine"
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp"
 	}
-
-	filter "configurations:*"
-        links { "Core" } 
 	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
-
 	includedirs {
 		"%{prj.location}/GameFramework",
 		"%{prj.location}/Core",
@@ -38,9 +32,6 @@ project "Rendering"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
 		
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
@@ -55,9 +46,6 @@ project "ResourceManagement"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
 		
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
@@ -72,8 +60,7 @@ project "Input"
         "%{prj.location}/**.cpp"
     }
 	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
+	
 		
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}

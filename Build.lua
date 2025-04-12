@@ -16,6 +16,7 @@ workspace "GameEngineProject"
     rtti("On")
     enablemodules("On")
     buildstlmodules("On")
+    
 	includedirs {
 	    "%{wks.location}/Shared",
 	    "%{wks.location}/Scripts",
@@ -73,6 +74,7 @@ workspace "GameEngineProject"
 
     filter "configurations:*DLL"
         kind "SharedLib"
+        defines { "CONFIG_SHAREDLIB" }
 
 group "Core"
     include "Core/Build-Core.lua"

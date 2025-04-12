@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "SingletonContainer.h"
 
 int32 Application::Start()
 {

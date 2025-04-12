@@ -5,9 +5,6 @@ project "Core"
     pchheader "pch.h"
     pchsource "%{wks.location}/Includes/pch.cpp"
     
-    filter "configurations:*"
-        kind "StaticLib"
-    
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp",

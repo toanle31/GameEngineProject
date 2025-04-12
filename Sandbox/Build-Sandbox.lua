@@ -10,7 +10,7 @@ project "Sandbox"
     
 	filter "configurations:*"
         kind "ConsoleApp"
-        links { "Core", "Engine" }
+        links { "Engine" }
         dependson { "Core", "Engine"}
 
 	filter "files:**.cpp"

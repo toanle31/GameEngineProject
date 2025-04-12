@@ -187,7 +187,7 @@ end
 local function write_macro(projectName, file)
     local prjNameUpper = string.upper(projectName)
     
-    file:write(string.format("\t#ifdef %s\n", prjNameUpper))
+    file:write(string.format("\t#ifdef %s_MODULE\n", prjNameUpper))
     file:write(string.format("\t\t#define %s_API __declspec(dllexport)\n", prjNameUpper))
     file:write(string.format("\t#else\n"))
     file:write(string.format("\t\t#define %s_API __declspec(dllimport)\n", prjNameUpper))

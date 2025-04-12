@@ -8,10 +8,7 @@ project "Scene"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
-		
+
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
 
@@ -24,10 +21,7 @@ project "Physics"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
-		
+
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
 
@@ -40,10 +34,7 @@ project "Audio"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
-	filter "configurations:*DLL"
-		defines { "CONFIG_SHAREDLIB" }
-		
+
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
 
