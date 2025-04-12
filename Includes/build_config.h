@@ -35,25 +35,3 @@ static constexpr PLATFORM CONFIG_PLATFORM =
 #else
     PLATFORM::NONE;
 #endif
-
-#if defined(CONFIG_PLATFORM_WINDOWS) && defined(CONFIG_SHAREDLIB)
-    #ifdef ENGINE
-        #define ENGINE_API __declspec(dllexport)
-    #else
-        #define ENGINE_API __declspec(dllimport)
-    #endif
-    #ifdef CORE
-        #define CORE_API __declspec(dllexport)
-    #else
-        #define CORE_API __declspec(dllimport)
-    #endif
-    #ifdef RENDERING
-        #define RENDERING_API __declspec(dllexport)
-    #else
-        #define RENDERING_API __declspec(dllimport)
-    #endif
-#else
-    #define ENGINE_API
-    #define CORE_API
-    #define RENDERING_API
-#endif

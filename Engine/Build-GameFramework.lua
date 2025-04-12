@@ -2,7 +2,6 @@
 project "Scene"
     staticruntime "off"
 	location "%{wks.location}/Engine/GameFramework/%{prj.name}"
-	defines { "SCENE" }
 	dependson { "Core" }
 	
 	files { 
@@ -19,7 +18,6 @@ project "Scene"
 project "Physics"
     staticruntime "off"
 	location "%{wks.location}/Engine/GameFramework/%{prj.name}"
-	defines { "PHYSICS" }
 	dependson { "Core" }
 	
 	files { 
@@ -36,7 +34,6 @@ project "Physics"
 project "Audio"
     staticruntime "off"
 	location "%{wks.location}/Engine/GameFramework/%{prj.name}"
-	defines { "AUDIO" }
 	dependson { "Core" }
 	
 	files { 

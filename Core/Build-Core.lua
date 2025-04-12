@@ -1,7 +1,7 @@
 project "Core"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
-    defines { "CORE" }    
+    --defines { "CORE" }    
     pchheader "pch.h"
     pchsource "%{wks.location}/Includes/pch.cpp"
     

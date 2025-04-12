@@ -18,6 +18,7 @@ workspace "GameEngineProject"
     buildstlmodules("On")
 	includedirs {
 	    "%{wks.location}/Shared",
+	    "%{wks.location}/Scripts",
 	    "%{wks.location}/Includes",
 		"%{wks.location}/Engine/Core/",
 		"%{wks.location}/Engine/GameFramework",
@@ -39,7 +40,9 @@ workspace "GameEngineProject"
             "/Zc:__cplusplus",
             --'/reference "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}/%{prj.name}/Win64/microsoft/STL/std.ifc"'
             }
-
+    
+    defines { "%{string.upper(prj.name)}" .. "_MODULE"}
+    
 	filter "system:linux"
 	    defines { "CONFIG_PLATFORM_LINUX" }
 	    systemversion "latest"

@@ -2,7 +2,6 @@
 project "Engine"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
-    defines { "ENGINE" }
    	dependson { "Core" }	
 	files { 
 		"%{prj.location}/**.h", 
@@ -33,7 +32,6 @@ project "Engine"
 project "Rendering"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
-	defines { "RENDERING" }
 	dependson { "Core" }
 	
 	files { 
@@ -67,7 +65,6 @@ project "ResourceManagement"
 project "Input"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
-	defines { "INPUT" }
 	dependson { "Core" }
 	
 	files { 

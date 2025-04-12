@@ -2,7 +2,6 @@ project "Sandbox"
 	kind "ConsoleApp"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
-	defines { "SANDBOX" }
 
     files { 
         "%{prj.location}/**.h", 
