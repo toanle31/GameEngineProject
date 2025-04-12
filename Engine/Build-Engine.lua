@@ -1,3 +1,4 @@
+-- ENGINE_CORE - END
 project "Engine"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
@@ -9,7 +10,7 @@ project "Engine"
 	}
 
 	filter "configurations:*"
-        links { "Core", "Rendering" } 
+        links { "Core" } 
 	
 	filter "configurations:*DLL"
 		defines { "CONFIG_SHAREDLIB" }
@@ -20,6 +21,7 @@ project "Engine"
 		"%{prj.location}/Core/ECS",
 		"%{prj.location}/Core/Input",
 		"%{prj.location}/Core/Rendering",
+		"%{prj.location}/Core/Rendering/Source",
 		"%{prj.location}/Core/ResourceManagement",
 		"%{prj.location}/Core/UI"
 	}
@@ -78,5 +80,3 @@ project "Input"
 		
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
-        
--- ENGINE_CORE - END

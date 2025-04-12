@@ -67,7 +67,6 @@ workspace "GameEngineProject"
         
     filter "configurations:*Lib"
         kind "StaticLib"
-        implibdir ("%{wks.location}/Shared/%{prj.name}")
 
     filter "configurations:*DLL"
         kind "SharedLib"
