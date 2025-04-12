@@ -1,21 +1,26 @@
 -- premake5.lua
 workspace "GameEngineProject"
+    language "C++"
+    cppdialect "C++23"
 	architecture "x64"
+	var_outdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
+	targetdir ("%{wks.location}/Binaries/" .. var_outdir .. "/%{prj.name}")
+    objdir ("%{wks.location}/Intermediates/" .. var_outdir .. "/%{prj.name}")
 	platforms { "Win64", "Linux64" }
-	startproject "Sandbox"
 	configurations { "DebugLib", "DevelopmentLib", "ReleaseLib", 
 	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }
+	
+	startproject "Sandbox"
+	
 	linkgroups "On"	
     rtti("On")
     enablemodules("On")
     buildstlmodules("On")
 	includedirs {
-	    "%{wks.location}/Includes",
 	    "%{wks.location}/Shared",
-		"%{wks.location}/Engine",
-		"%{wks.location}/Engine/Dependencies",
-		"%{wks.location}/Engine/Source",
-		"%{wks.location}/EngineModules/Rendering",
+	    "%{wks.location}/Includes",
+		"%{wks.location}/Engine/Core/",
+		"%{wks.location}/Engine/GameFramework",
 		"%{wks.location}/Core",
 		"%{wks.location}/Core/CoreTypes",
 		"%{wks.location}/Core/Time",
@@ -25,6 +30,7 @@ workspace "GameEngineProject"
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
 	    defines { "CONFIG_PLATFORM_WINDOWS" }
+	    toolsversion "14.43.34808"
 	    systemversion "latest"
 		buildoptions {
 		    "/std:c++latest",
@@ -61,19 +67,19 @@ workspace "GameEngineProject"
         
     filter "configurations:*Lib"
         kind "StaticLib"
-        implibdir ("%{wks.location}/Shared")
+        implibdir ("%{wks.location}/Shared/%{prj.name}")
 
     filter "configurations:*DLL"
         kind "SharedLib"
-	    	
-    outputdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
 
 group "Core"
     include "Core/Build-Core.lua"
 
 group "Engine"
-	include "Engine/Build-Engine.lua"
-	include "EngineModules/Build-Modules.lua"
+    include "Engine/Build-Engine.lua"
+    
+group "GameFramework"
+    include "Engine/Build-GameFramework.lua"
 	
 group "Sandbox"
 	include "Sandbox/Build-Sandbox.lua"

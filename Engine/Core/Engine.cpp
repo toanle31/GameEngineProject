@@ -7,6 +7,7 @@ Engine::~Engine()
 
 int32 Engine::EngineMain()
 {
+	// Initialize<>();
 	EngineLoop();
 	return 0;
 }

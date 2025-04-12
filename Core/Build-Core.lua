@@ -1,10 +1,6 @@
 project "Core"
-	language "C++"
-	cppdialect "C++23"
 	staticruntime "off"
-	location "%{wks.location}/Core"
-	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+	location "%{wks.location}/%{prj.name}"
     defines { "CORE" }    
     pchheader "pch.h"
     pchsource "%{wks.location}/Includes/pch.cpp"

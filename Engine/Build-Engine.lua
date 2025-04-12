@@ -1,10 +1,6 @@
 project "Engine"
-	language "C++"
-	cppdialect "C++23"
 	staticruntime "off"
-	location "%{wks.location}/Engine"
-	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+	location "%{wks.location}/%{prj.name}"
     defines { "ENGINE" }
    	dependson { "Core" }	
 	files { 
@@ -13,18 +9,74 @@ project "Engine"
 	}
 
 	filter "configurations:*"
-        links { "Core", "Renderer" } 
+        links { "Core", "Rendering" } 
 	
 	filter "configurations:*DLL"
 		defines { "CONFIG_SHAREDLIB" }
 
 	includedirs {
-		"%{prj.location}/Dependencies",
-		"%{prj.location}/Source",
-		"%{prj.location}/Source/EngineTypes",
-		"%{prj.location}/Source/ECS",
-		"%{prj.location}/Source/UI"
+		"%{prj.location}/GameFramework",
+		"%{prj.location}/Core",
+		"%{prj.location}/Core/ECS",
+		"%{prj.location}/Core/Input",
+		"%{prj.location}/Core/Rendering",
+		"%{prj.location}/Core/ResourceManagement",
+		"%{prj.location}/Core/UI"
 	}
 
     filter "files:**.cpp"
         forceincludes { "pch.h", "Core.h"}
+
+-- ENGINE_CORE - START
+project "Rendering"
+    staticruntime "off"
+	location "%{wks.location}/Engine/Core/%{prj.name}"
+	defines { "RENDERING" }
+	dependson { "Core" }
+	
+	files { 
+        "%{prj.location}/**.h", 
+        "%{prj.location}/**.cpp"
+    }
+	
+	filter "configurations:*DLL"
+		defines { "CONFIG_SHAREDLIB" }
+		
+    filter "files:**.cpp"
+        forceincludes { "pch.h", "Core.h"}
+
+project "ResourceManagement"
+    staticruntime "off"
+	location "%{wks.location}/Engine/Core/%{prj.name}"
+	defines { "RESOURCEMANAGEMENT" }
+	dependson { "Core" }
+	
+	files { 
+        "%{prj.location}/**.h", 
+        "%{prj.location}/**.cpp"
+    }
+	
+	filter "configurations:*DLL"
+		defines { "CONFIG_SHAREDLIB" }
+		
+    filter "files:**.cpp"
+        forceincludes { "pch.h", "Core.h"}
+
+project "Input"
+    staticruntime "off"
+	location "%{wks.location}/Engine/Core/%{prj.name}"
+	defines { "INPUT" }
+	dependson { "Core" }
+	
+	files { 
+        "%{prj.location}/**.h", 
+        "%{prj.location}/**.cpp"
+    }
+	
+	filter "configurations:*DLL"
+		defines { "CONFIG_SHAREDLIB" }
+		
+    filter "files:**.cpp"
+        forceincludes { "pch.h", "Core.h"}
+        
+-- ENGINE_CORE - END

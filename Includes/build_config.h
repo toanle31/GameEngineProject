@@ -19,9 +19,9 @@ enum class PLATFORM
 static constexpr BUILD CONFIG_BUILD =
 #ifdef CONFIG_DEBUG
     BUILD::DEBUG;
-#elifdef CONFIG_DEVELOPMENT
+#elif defined(CONFIG_DEVELOPMENT)
     BUILD::DEVELOPMENT;
-#elifdef CONFIG_RELEASE
+#elif defined(CONFIG_RELEASE)
     BUILD::RELEASE;
 #else
     BUILD:NONE;
@@ -30,7 +30,7 @@ static constexpr BUILD CONFIG_BUILD =
 static constexpr PLATFORM CONFIG_PLATFORM =
 #ifdef CONFIG_PLATFORM_WINDOWS
     PLATFORM::WINDOWS;
-#elifdef CONFIG_PLATFORM_LINUX
+#elif defined(CONFIG_PLATFORM_LINUX)
     PLATFORM::LINUX;
 #else
     PLATFORM::NONE;

@@ -10,7 +10,7 @@ ENGINE_API int main(int argc, char* argv[])
 	auto App = SingletonContainer::CreateSingletonInstance<Application>();
 	if (App != nullptr)
 	{
-		RetVal = App->StartApp();
+		RetVal = App->Start();
 	}
 	return RetVal;
 }
