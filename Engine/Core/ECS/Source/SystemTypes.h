@@ -1,7 +1,7 @@
 #pragma once
 
 struct Entity;
-class SystemBase
+class ECS_API SystemBase
 {
 public:
 	virtual ~SystemBase() = default;

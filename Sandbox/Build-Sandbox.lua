@@ -1,5 +1,4 @@
 project "Sandbox"
-	kind "ConsoleApp"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
 
@@ -10,15 +9,12 @@ project "Sandbox"
     
 	filter "configurations:*"
         kind "ConsoleApp"
-        links { "Engine" }
-        dependson { "Core", "Engine"}
-
+        
 	filter "files:**.cpp"
-        forceincludes { "pch.h", "Core.h"}
+        forceincludes { "pch.h" }
 
 	includedirs {
 		"%{prj.location}/Source",
 		"%{wks.location}/Engine",
-		"%{wks.location}/Dependencies",
-        "%{wks.location}/Engine/Source",
+        "%{wks.location}/Engine/Core/Engine",
 	}

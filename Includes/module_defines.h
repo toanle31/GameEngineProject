@@ -10,6 +10,11 @@
 	#else
 		#define CORE_API __declspec(dllimport)
 	#endif
+	#ifdef ECS_MODULE
+		#define ECS_API __declspec(dllexport)
+	#else
+		#define ECS_API __declspec(dllimport)
+	#endif
 	#ifdef ENGINE_MODULE
 		#define ENGINE_API __declspec(dllexport)
 	#else
@@ -48,6 +53,7 @@
 #else
 	#define SANDBOX
 	#define CORE
+	#define ECS
 	#define ENGINE
 	#define INPUT
 	#define RENDERING

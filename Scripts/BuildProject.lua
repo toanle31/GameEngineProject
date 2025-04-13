@@ -5,6 +5,10 @@ local PATH_sln = "../GameEngineProject.sln"
 local PATH_log = "./build_log.txt"
 local PATH_script = "./Scripts/"
 
+local PATH_Engine = "../Engine"
+local PATH_Core = "../Core"
+local PATH_Sandbox = "../Sandbox"
+
 local CMD_premake = "Premake5.exe --file=" .. "../Build.lua" .. " vs2022"
 local CMD_msbuild = "MSBuild.exe %s /p:Configuration=%s /v:%s"
 
@@ -295,7 +299,7 @@ local function remove_dir(path)
     print(string.format("Deleting %s", path))
     lfs.rmdir(path)
 end
-
+    
 local function handle_clean()
     local dirs = {
         "../" .. NAME_Intermediates,

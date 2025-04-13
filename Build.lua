@@ -8,8 +8,7 @@ workspace "GameEngineProject"
     objdir ("%{wks.location}/Intermediates/" .. var_outdir .. "/%{prj.name}")
 	platforms { "Win64", "Linux64" }
 	configurations { "DebugLib", "DevelopmentLib", "ReleaseLib", 
-	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }
-	
+	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }                
 	startproject "Sandbox"
 	
 	linkgroups "On"	
@@ -21,13 +20,20 @@ workspace "GameEngineProject"
 	    "%{wks.location}/Shared",
 	    "%{wks.location}/Scripts",
 	    "%{wks.location}/Includes",
-		"%{wks.location}/Engine/Core/",
+		"%{wks.location}/Engine/Core",
 		"%{wks.location}/Engine/GameFramework",
 		"%{wks.location}/Core",
 		"%{wks.location}/Core/CoreTypes",
 		"%{wks.location}/Core/Time",
 		"%{wks.location}/Core/Utils"
 	}
+    
+    includedirs {
+        "%{prj.name}/Source"
+    }
+    
+    filter {"files:Engine/**.h", "files:Sandbox/**.h"}
+        forceincludes { "Core.h" }
 
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
