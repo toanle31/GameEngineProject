@@ -7,8 +7,8 @@ project "Scene"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-
-
+	filter "platforms:not *Shared"
+	    links { "Core" }
 
 -- PHYSICS        
 project "Physics"
@@ -19,8 +19,8 @@ project "Physics"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-
-
+	filter "platforms:not *Shared"
+	    links { "Core" }
 
 -- AUDIO        
 project "Audio"
@@ -32,4 +32,5 @@ project "Audio"
         "%{prj.location}/**.cpp"
     }
 
-
+	filter "platforms:not *Shared"
+	    links { "Core" }

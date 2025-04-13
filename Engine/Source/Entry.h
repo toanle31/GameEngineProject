@@ -2,15 +2,14 @@
 
 #include "Application.h"
 #include "SingletonContainer.h"
-
-int main(int argc, char* argv[])
+template ENGINE_API [[nodiscard]] Application* SingletonContainer::CreateSingletonInstance<Application>();
+int32_t main(int argc, char* argv[])
 {
-	//TSharedPtr<Application> App = std::make_shared<Application>();
 	int32_t RetVal = 0;
-	auto App = SingletonContainer::CreateSingletonInstance<Application>();
-	if (App != nullptr)
+	if (Application* App = SingletonContainer::CreateSingletonInstance<Application>())
 	{
 		RetVal = App->Start();
 	}
+	
 	return RetVal;
 }

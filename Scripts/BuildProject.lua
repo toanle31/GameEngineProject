@@ -11,7 +11,6 @@ local PATH_Sandbox = "../Sandbox"
 
 local CMD_premake = "Premake5.exe --file=" .. "../Build.lua" .. " vs2022"
 local CMD_msbuild = "MSBuild.exe %s /p:Configuration=%s /v:%s"
-
 local NAME_Intermediates = "Intermediates"
 local NAME_Binaries = "Binaries"
 
@@ -125,7 +124,7 @@ local function get_build_configuration()
     end)
 
     if not success then
-        config = "DebugLib"
+        config = "Debug"
     end
 
     print("Using Config: " .. config)
@@ -143,6 +142,8 @@ local function try_find_config_arg()
 end
 
 local function run_command(command)
+    print(string.format("Executing command - %s", command))
+    
     local handle = io.popen("cmd /c " .. command .. " 2>&1")
     local output = handle:read("*a")
     local success, exit_type, exit_code = handle:close()
@@ -201,7 +202,7 @@ end
 
 local function write_empty_api(projectName, file)
     local prjNameUpper = string.upper(projectName)
-    file:write(string.format("\t#define %s\n", prjNameUpper))
+    file:write(string.format("\t#define %s_API \n", prjNameUpper))
 end
 
 local function define_modules()
@@ -246,9 +247,9 @@ local function handle_gen()
     if not success then
         print(string.format("Error: Premake returned Error: %s - exit_type: %s", tostring(exit_code), tostring(exit_type)))
         os.exit(1)
-    else
-        handle_post_gen()
     end
+
+    handle_post_gen()
 end
 
 local function trigger_msbuild_build(configuration)
@@ -287,17 +288,21 @@ local function remove_dir(path)
             if attr.mode == "directory" then
                 -- Recursively remove the directory
                 remove_dir(fullPath)
-                print(string.format("Deleting %s", fullPath))
             else
                 -- Remove the file
-                os.remove(fullPath)
-                print(string.format("Deleting %s", fullPath))
+                local success = os.remove(fullPath)
+                if success then
+                    print(string.format("REMOVED %s", fullPath))
+                end
             end
         end
     end
+
     -- Remove the empty directory
-    print(string.format("Deleting %s", path))
-    lfs.rmdir(path)
+    local dirrm = lfs.rmdir(path)
+    if dirrm then
+        print(string.format("REMOVED %s", path))
+    end
 end
     
 local function handle_clean()

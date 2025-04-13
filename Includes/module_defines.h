@@ -30,10 +30,10 @@
 	#else
 		#define RENDERING_API __declspec(dllimport)
 	#endif
-	#ifdef RESOURCEMANAGEMENT_MODULE
-		#define RESOURCEMANAGEMENT_API __declspec(dllexport)
+	#ifdef RESOURCESHANDLER_MODULE
+		#define RESOURCESHANDLER_API __declspec(dllexport)
 	#else
-		#define RESOURCEMANAGEMENT_API __declspec(dllimport)
+		#define RESOURCESHANDLER_API __declspec(dllimport)
 	#endif
 	#ifdef AUDIO_MODULE
 		#define AUDIO_API __declspec(dllexport)
@@ -51,14 +51,14 @@
 		#define SCENE_API __declspec(dllimport)
 	#endif
 #else
-	#define SANDBOX
-	#define CORE
-	#define ECS
-	#define ENGINE
-	#define INPUT
-	#define RENDERING
-	#define RESOURCEMANAGEMENT
-	#define AUDIO
-	#define PHYSICS
-	#define SCENE
+	#define SANDBOX_API 
+	#define CORE_API 
+	#define ECS_API 
+	#define ENGINE_API 
+	#define INPUT_API 
+	#define RENDERING_API 
+	#define RESOURCESHANDLER_API 
+	#define AUDIO_API 
+	#define PHYSICS_API 
+	#define SCENE_API 
 #endif

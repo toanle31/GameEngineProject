@@ -2,7 +2,7 @@
 project "Engine"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
-	dependson { "Core", "ECS", "Input", "Rendering", "ResourceManagement", "Audio", "Physics", "Scene" }
+	dependson { "Core", "ECS", "Rendering", "ResourcesHandler" }
    	files { 
 		"%{prj.location}/Source/**.h", 
 		"%{prj.location}/Source/**.cpp"
@@ -10,17 +10,19 @@ project "Engine"
 	
 	includedirs {
 		"%{prj.location}/GameFramework",
+		"%{prj.location}/Source",
+		"%{prj.location}/Source/Managers",
 		"%{prj.location}/Core",
 		"%{prj.location}/Core/ECS",
 		"%{prj.location}/Core/Input",
-		"%{prj.location}/Core/Rendering",
 		"%{prj.location}/Core/Rendering/Source",
-		"%{prj.location}/Core/ResourceManagement",
+		"%{prj.location}/Core/ResourcesHandler/Source",
 		"%{prj.location}/Core/UI"
 	}
-
-
-
+    
+    filter "platforms:not *Shared"
+        links { "Core", "ECS", "Rendering", "ResourcesHandler"}
+    
 -- RENDERING
 project "Rendering"
     staticruntime "off"
@@ -30,22 +32,24 @@ project "Rendering"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-		
 
-
+	filter "platforms:not *Shared"
+	    links { "Core" }
+	    	
 -- RESOURCEMANAGEMENT
-project "ResourceManagement"
+project "ResourcesHandler"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
 	dependson {"Core"}
-	defines { "RESOURCEMANAGEMENT" }
+	defines { "ResourcesHandler" }
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-		
 
-
+	filter "platforms:not *Shared"
+	    links { "Core" }
+	    		
 -- INPUT
 project "Input"
     staticruntime "off"
@@ -55,9 +59,10 @@ project "Input"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
 
-        
+	filter "platforms:not *Shared"
+	    links { "Core" }
+	    	     
 -- ECS
 project "ECS"
     staticruntime "off"
@@ -67,5 +72,6 @@ project "ECS"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
-	
 
+	filter "platforms:not *Shared"
+	    links { "Core" }	

@@ -1,5 +1,4 @@
 project "Core"
-    kind "StaticLib"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
     pchheader "pch.h"
@@ -10,3 +9,8 @@ project "Core"
 		"%{wks.location}/Includes/**.h", 
         "%{wks.location}/Includes/**.cpp"
 	}
+
+    prebuildcommands {
+        "CD ../Scripts/",
+        "lua BuildProject.lua gen"        
+    }

@@ -6,9 +6,8 @@ workspace "GameEngineProject"
 	var_outdir = "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}"
 	targetdir ("%{wks.location}/Binaries/" .. var_outdir .. "/%{prj.name}")
     objdir ("%{wks.location}/Intermediates/" .. var_outdir .. "/%{prj.name}")
-	platforms { "Win64", "Linux64" }
-	configurations { "DebugLib", "DevelopmentLib", "ReleaseLib", 
-	                "DebugDLL", "DevelopmentDLL", "ReleaseDLL" }  
+	platforms { "Win64Shared", "Linux64Shared", "Win64", "Linux64" }
+	configurations { "Debug", "Development", "Release" }
 	startproject "Sandbox"
 	linkgroups "On"	
     rtti("On")
@@ -17,9 +16,11 @@ workspace "GameEngineProject"
 	includedirs {
 	    "%{wks.location}/Shared",
 	    "%{wks.location}/Includes",
-		"%{wks.location}/Engine/Source",
-		"%{wks.location}/Engine/Core",
-		"%{wks.location}/Engine/GameFramework",
+	    "%{wks.location}/Engine",
+        "%{wks.location}/Engine/Source",
+        "%{wks.location}/Engine/Source/Managers",
+        "%{wks.location}/Engine/Core",
+        "%{wks.location}/Engine/GameFramework",
 		"%{wks.location}/Core",
 		"%{wks.location}/Core/CoreTypes",
 		"%{wks.location}/Core/Time",
@@ -76,10 +77,10 @@ workspace "GameEngineProject"
         optimize "Full"
         symbols "Off"
         
-    filter "configurations:*Lib"
+    filter "platforms:not *Shared"
         kind "StaticLib"
 
-    filter "configurations:*DLL"
+    filter "platforms:*Shared"
         kind "SharedLib"
         defines { "CONFIG_SHAREDLIB" }
 
@@ -90,7 +91,7 @@ group "Engine"
     include "Engine/Build-Engine.lua"
     
 group "GameFramework"
-    include "Engine/Build-GameFramework.lua"
+    include "Engine/GameFramework/Build-GameFramework.lua"
 	
 group "Sandbox"
 	include "Sandbox/Build-Sandbox.lua"
