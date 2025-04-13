@@ -6,10 +6,9 @@ project "Sandbox"
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
-    } 
-    
-    filter "platforms:not *Shared"
-        links { "Core", "Engine" }
+    }
+
+    links { "Engine" }
 
 	includedirs {
 		"%{prj.location}/Source"

@@ -9,7 +9,15 @@ project "Core"
 		"%{wks.location}/Includes/**.h", 
         "%{wks.location}/Includes/**.cpp"
 	}
-
+    
+    includedirs {
+        "%{prj.location}/CoreTypes",
+        "%{prj.location}/Time",
+        "%{prj.location}/Utils",
+        "%{wks.location}/Includes", 
+        "%{wks.location}/Includes"
+    }
+    
     prebuildcommands {
         "CD ../Scripts/",
         "lua BuildProject.lua gen"        

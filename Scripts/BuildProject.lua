@@ -9,7 +9,7 @@ local PATH_Engine = "../Engine"
 local PATH_Core = "../Core"
 local PATH_Sandbox = "../Sandbox"
 
-local CMD_premake = "Premake5.exe --file=" .. "../Build.lua" .. " vs2022"
+local CMD_premake = "Premake5.exe --file=" .. "../Build.lua"
 local CMD_msbuild = "MSBuild.exe %s /p:Configuration=%s /v:%s"
 local NAME_Intermediates = "Intermediates"
 local NAME_Binaries = "Binaries"
@@ -239,7 +239,7 @@ end
 
 -- run premake
 local function handle_gen()
-    local premake_call = CMD_premake
+    local premake_call = CMD_premake .. " vs2022"
     
     print(string.format("Calling premake... \n\n%s", CMD_premake))
     local success, output, exit_type, exit_code = run_command(premake_call)

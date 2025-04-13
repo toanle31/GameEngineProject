@@ -9,7 +9,6 @@ workspace "GameEngineProject"
 	platforms { "Win64Shared", "Linux64Shared", "Win64", "Linux64" }
 	configurations { "Debug", "Development", "Release" }
 	startproject "Sandbox"
-	linkgroups "On"	
     rtti("On")
     enablemodules("On")
     buildstlmodules("On")

@@ -2,12 +2,9 @@
 
 int32 Application::Start()
 {
-	// Engine ptr
-	
-	return 0;
+    return 0;
 }
 
 void Application::Shutdown()
 {
-	
 }
