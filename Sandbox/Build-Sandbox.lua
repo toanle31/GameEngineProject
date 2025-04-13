@@ -1,7 +1,7 @@
 project "Sandbox"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
-
+	dependson {"Core", "Engine"}
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
@@ -10,11 +10,13 @@ project "Sandbox"
 	filter "configurations:*"
         kind "ConsoleApp"
         
-	filter "files:**.cpp"
-        forceincludes { "pch.h" }
+    filter "configurations:*Lib"
+        links { "Engine" }
 
 	includedirs {
 		"%{prj.location}/Source",
 		"%{wks.location}/Engine",
-        "%{wks.location}/Engine/Core/Engine",
-	}
+		"%{wks.location}/Engine/Source",
+		"%{wks.location}/Engine/Core",
+		"%{wks.location}/Engine/GameFramework",
+	} 

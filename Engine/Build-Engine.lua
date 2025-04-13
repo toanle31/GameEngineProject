@@ -1,11 +1,11 @@
 -- ENGINE
 project "Engine"
 	staticruntime "off"
-	location "%{wks.location}/Engine/Core/%{prj.name}"
-	links { "Core", "ECS", "Input", "Rendering", "ResourceManagement", "Audio", "Physics", "Scene" }
+	location "%{wks.location}/%{prj.name}"
+	dependson { "Core", "ECS", "Input", "Rendering", "ResourceManagement", "Audio", "Physics", "Scene" }
    	files { 
-		"%{prj.location}/**.h", 
-		"%{prj.location}/**.cpp"
+		"%{prj.location}/Source/**.h", 
+		"%{prj.location}/Source/**.cpp"
 	}
 	
 	includedirs {
@@ -19,58 +19,53 @@ project "Engine"
 		"%{prj.location}/Core/UI"
 	}
 
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
+
 
 -- RENDERING
 project "Rendering"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
-    links { "Core" }
+	dependson {"Core"}
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
 		
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
+
 
 -- RESOURCEMANAGEMENT
 project "ResourceManagement"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
+	dependson {"Core"}
 	defines { "RESOURCEMANAGEMENT" }
-    links { "Core" }
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
 		
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
+
 
 -- INPUT
 project "Input"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
-    links { "Core" }
+	dependson {"Core"}
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
 	
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
+
         
 -- ECS
 project "ECS"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
-    links { "Core" }
+	dependson {"Core"}
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
 	
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
+
