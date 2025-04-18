@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include "Core.h"
 #include "Containers.h"
 
 // This class simply holds instances of classes

@@ -1,4 +1,5 @@
 #pragma once
+#include "Core.h"
 
 class SingletonContainer;
 class ENGINE_API Application

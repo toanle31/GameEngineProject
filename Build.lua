@@ -12,6 +12,9 @@ workspace "GameEngineProject"
 	configurations { "Debug", "Development", "Release" }
 	startproject "Sandbox"
     rtti("On")
+    enablemodules("On")
+    buildstlmodules("On")
+    
 	includedirs {
 	    "%{wks.location}/Includes",
 	    "%{wks.location}/Engine",
@@ -27,24 +30,15 @@ workspace "GameEngineProject"
 
     externalincludedirs {
         "%{wks.location}/Extern/SDL3/include",
-        "%{wks.location}/Extern/Lib",
-        "%{wks.location}/Extern/Lib/STL",
     }
-
-    links {"%{PATH.Lib_STL}", "%{PATH.Lib_STLC}"}
-    
-    filter {"files:**pch.cpp"}
-        buildoptions {
-            "../Core/CoreTypes/Core.h"
-        }
     
     libdirs {
         "../Extern/Lib/**",
         "Extern/Lib/**",
     }
 
-    --filter {"files:Engine/**.h or files:Sandbox/**.h"}
-        --forceincludes { "Core.h" }
+    filter {"files:Engine/**.h or files:Sandbox/**.h"}
+        forceincludes { "Core.h" }
 
 	 -- Workspace-wide build options for MSVC
 	filter "system:windows"
@@ -56,12 +50,10 @@ workspace "GameEngineProject"
             "/EHsc", 
             "/Zc:preprocessor", 
             "/Zc:__cplusplus",
-            "/experimental:module",
-            "/reference std=..\\Extern\\Lib\\STL\\std.ixx.ifc",
-            "/reference std.compat=..\\Extern\\Lib\\STL\\std.compat.ixx.ifc",
+            "/experimental:module"
             }
     
-    defines { "%{string.upper(prj.name)}" .. "_MODULE"}
+    defines { "%{string.upper(prj.name)}" .. "_MODULE" }
     
 	filter "system:linux"
 	    defines { "CONFIG_PLATFORM_LINUX" }

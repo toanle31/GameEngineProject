@@ -7,7 +7,7 @@ project "Engine"
 		"%{prj.location}/Source/**.h", 
 		"%{prj.location}/Source/**.cpp"
 	}
-
+    
     filter "files:**.cpp"
         forceincludes { "pch.h" }
         

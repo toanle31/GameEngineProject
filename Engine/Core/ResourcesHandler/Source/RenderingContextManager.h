@@ -1,6 +1,9 @@
 ﻿#pragma once
-class SingletonContainer;
+#include "SDL3/SDL.h" // needs to be first
 
+#include "Core.h"
+
+class SingletonContainer;
 /*
  * This class handle viewports and windows management tasks.
  * Handles SDL to provide to Rendering APIs like Vulkan
@@ -13,7 +16,6 @@ public:
      * SDL initialization.
      */
     void Initialize();
-    
 private:
-    SDLWinUID NextWindowUID;
+    SDL_WindowID NextWindowUID;
 };
