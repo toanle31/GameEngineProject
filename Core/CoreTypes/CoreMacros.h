@@ -12,4 +12,6 @@
     ClassName& operator=(ClassName&& other) = delete;\
     template<typename... Ts, typename = std::enable_if_t<(sizeof...(Ts) > 0)>>\
     ClassName(Ts... args) = delete;
-    
+
+#define EXPORT_SHARED_PTR_Class(Module, ClassName) \
+    template class Module##_API std::shared_ptr<ClassName>;

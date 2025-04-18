@@ -2,6 +2,7 @@
 project "Engine"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
+	links { "ResourcesHandler" }
 	dependson { "Core", "ECS", "Rendering", "ResourcesHandler" }
    	files { 
 		"%{prj.location}/Source/**.h", 
@@ -12,23 +13,16 @@ project "Engine"
         forceincludes { "pch.h" }
         
     includedirs {
-        "%{prj.name}/Source"
+        "%{prj.name}/Source",
+        "%{prj.location}/GameFramework",
+        "%{prj.location}/Source",
+        "%{prj.location}/Source/Managers",
+        "%{prj.location}/Core",
+        "%{prj.location}/Core/ResourcesHandler",   
     }
-
-	includedirs {
-		"%{prj.location}/GameFramework",
-		"%{prj.location}/Source",
-		"%{prj.location}/Source/Managers",
-		"%{prj.location}/Core",
-		"%{prj.location}/Core/ECS",
-		"%{prj.location}/Core/Input",
-		"%{prj.location}/Core/Rendering/Source",
-		"%{prj.location}/Core/ResourcesHandler/Source",
-		"%{prj.location}/Core/UI"
-	}
     
     filter "platforms:not *Shared"
-        links { "Core", "ECS", "Rendering", "ResourcesHandler"}
+        links { "Core" }
     
 -- RENDERING
 project "Rendering"

@@ -3,7 +3,7 @@ project "Sandbox"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
 	dependson {"Core", "Engine"}
-	links { "Engine" }
+	links { "Engine", "SDL" }
 	
     files { 
         "%{prj.location}/**.h", 

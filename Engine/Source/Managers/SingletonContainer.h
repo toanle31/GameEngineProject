@@ -8,8 +8,8 @@
 class SingletonContainer
 {
 public:
-    template <typename T> static
-    [[nodiscard]] T* CreateSingletonInstance()
+    template <typename T>
+    static [[nodiscard]] T* CreateSingletonInstance()
     {
         if (!Singletons.contains(typeid(T)))
         {
