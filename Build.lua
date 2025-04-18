@@ -1,3 +1,5 @@
+include "Dependencies.lua"
+
 -- premake5.lua
 workspace "GameEngineProject"
     language "C++"
@@ -12,6 +14,7 @@ workspace "GameEngineProject"
     rtti("On")
     enablemodules("On")
     buildstlmodules("On")
+    
 	includedirs {
 	    "%{wks.location}/Shared",
 	    "%{wks.location}/Includes",
@@ -25,7 +28,17 @@ workspace "GameEngineProject"
 		"%{wks.location}/Core/Time",
 		"%{wks.location}/Core/Utils"
 	}
-    
+
+    includedirs {
+        "%{wks.location}/Extern/SDL3/include",
+        "%{wks.location}/Extern/Lib"
+    }
+
+    libdirs {
+        "../Extern/Lib/**",
+        "Extern/Lib/**",
+    }
+
     filter {"files:Engine/**.cpp or files:Sandbox/**.cpp"}
         forceincludes { "Core.h" }
 
@@ -86,3 +99,6 @@ group "GameFramework"
 	
 group "Sandbox"
 	include "Sandbox/Build-Sandbox.lua"
+
+group "Dependencies"
+    include "Extern/SDL3/Build-SDL.lua"

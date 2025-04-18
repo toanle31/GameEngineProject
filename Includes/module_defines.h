@@ -10,6 +10,11 @@
 	#else
 		#define CORE_API __declspec(dllimport)
 	#endif
+	#ifdef SDL_MODULE
+		#define SDL_API __declspec(dllexport)
+	#else
+		#define SDL_API __declspec(dllimport)
+	#endif
 	#ifdef ECS_MODULE
 		#define ECS_API __declspec(dllexport)
 	#else
@@ -53,6 +58,7 @@
 #else
 	#define SANDBOX_API 
 	#define CORE_API 
+	#define SDL_API 
 	#define ECS_API 
 	#define ENGINE_API 
 	#define INPUT_API 
