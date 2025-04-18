@@ -54,7 +54,7 @@ project "Rendering"
 project "ResourcesHandler"
     staticruntime "off"
 	location "%{wks.location}/Engine/Core/%{prj.name}"
-	dependson {"Core"}
+	dependson { "Core" }
 	links { "%{PATH.Lib_SDL}" }
 	defines { "ResourcesHandler" }
     files { 

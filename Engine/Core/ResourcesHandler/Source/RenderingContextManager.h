@@ -8,7 +8,12 @@ class SingletonContainer;
 class RESOURCESHANDLER_API RenderingContextManager
 {
     REGISTER_SINGLETON_CLASS(RenderingContextManager, class SingletonContainer)
-
 public:
+    /*
+     * SDL initialization.
+     */
     void Initialize();
+    
+private:
+    SDLWinUID NextWindowUID;
 };

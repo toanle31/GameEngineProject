@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "..\\Intermediates\\Debug\\windows-x86_64\\Core\\Win64Shared\\microsoft/STL\\std.ixx.obj",
+            "outputs": [
+                "G:\\GameEngineProject\\Intermediates\\Debug\\windows-x86_64\\Core\\Win64Shared\\vc143.pdb",
+                "..\\Intermediates\\Debug\\windows-x86_64\\Core\\Win64Shared\\microsoft/STL\\",
+                "G:\\GameEngineProject\\Intermediates\\Debug\\windows-x86_64\\Core\\Win64Shared\\microsoft\\STL\\std.ixx.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "std",
+                    "source-path": "c:\\program files\\microsoft visual studio\\2022\\professional\\vc\\tools\\msvc\\14.43.34808\\modules\\std.ixx",
+                    "is-interface": true
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

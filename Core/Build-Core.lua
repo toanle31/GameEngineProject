@@ -16,7 +16,6 @@ project "Core"
         "%{prj.location}/CoreTypes",
         "%{prj.location}/Time",
         "%{prj.location}/Utils",
-        "%{wks.location}/Includes", 
         "%{wks.location}/Includes"
     }
     
