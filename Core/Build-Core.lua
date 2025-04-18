@@ -9,7 +9,9 @@ project "Core"
 		"%{wks.location}/Includes/**.h", 
         "%{wks.location}/Includes/**.cpp"
 	}
-    
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+            
     includedirs {
         "%{prj.location}/CoreTypes",
         "%{prj.location}/Time",

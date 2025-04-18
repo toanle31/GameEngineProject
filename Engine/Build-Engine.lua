@@ -7,7 +7,14 @@ project "Engine"
 		"%{prj.location}/Source/**.h", 
 		"%{prj.location}/Source/**.cpp"
 	}
-	
+
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
+    }
+
 	includedirs {
 		"%{prj.location}/GameFramework",
 		"%{prj.location}/Source",
@@ -33,6 +40,13 @@ project "Rendering"
         "%{prj.location}/**.cpp"
     }
 
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
+    }
+
 	filter "platforms:not *Shared"
 	    links { "Core" }
 	    	
@@ -45,6 +59,13 @@ project "ResourcesHandler"
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
+    }
+
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
     }
 
 	filter "platforms:not *Shared"
@@ -60,6 +81,13 @@ project "Input"
         "%{prj.location}/**.cpp"
     }
 
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
+    }
+
 	filter "platforms:not *Shared"
 	    links { "Core" }
 	    	     
@@ -71,6 +99,13 @@ project "ECS"
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
+    }
+
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
     }
 
 	filter "platforms:not *Shared"

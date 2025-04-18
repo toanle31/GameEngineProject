@@ -25,13 +25,6 @@ workspace "GameEngineProject"
 		"%{wks.location}/Core/Time",
 		"%{wks.location}/Core/Utils"
 	}
-
-    filter "files:**.cpp"
-        forceincludes { "pch.h" }
-        
-    includedirs {
-        "%{prj.name}/Source"
-    }
     
     filter {"files:Engine/**.cpp or files:Sandbox/**.cpp"}
         forceincludes { "Core.h" }
@@ -46,7 +39,6 @@ workspace "GameEngineProject"
             "/EHsc", 
             "/Zc:preprocessor", 
             "/Zc:__cplusplus",
-            --'/reference "%{cfg.buildcfg}/%{cfg.system}-%{cfg.architecture}/%{prj.name}/Win64/microsoft/STL/std.ifc"'
             }
     
     defines { "%{string.upper(prj.name)}" .. "_MODULE"}

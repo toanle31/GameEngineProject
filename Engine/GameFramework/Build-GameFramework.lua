@@ -7,6 +7,14 @@ project "Scene"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
+
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
+    }
+
 	filter "platforms:not *Shared"
 	    links { "Core" }
 
@@ -19,6 +27,14 @@ project "Physics"
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
     }
+
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
+    }
+
 	filter "platforms:not *Shared"
 	    links { "Core" }
 
@@ -30,6 +46,13 @@ project "Audio"
 	files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
+    }
+
+    filter "files:**.cpp"
+        forceincludes { "pch.h" }
+        
+    includedirs {
+        "%{prj.name}/Source"
     }
 
 	filter "platforms:not *Shared"
