@@ -12,6 +12,9 @@ class RenderingContextManager
 {
     REGISTER_SINGLETON_CLASS(RenderingContextManager, class SingletonContainer)
 public:
+
+    ~RenderingContextManager() = default;
+    
     /*
      * SDL initialization.
      */

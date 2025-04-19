@@ -2,6 +2,8 @@
 #include "Core.h"
 #include "ResourcesHandler/RenderingContextManager.h"
 
+struct ApplicationContext;
+
 class ENGINE_API Engine final
 {
 private:
@@ -11,7 +13,7 @@ public:
 	virtual ~Engine() = default;
 	SDL_AppResult Start();
 	void Shutdown();
-	// template<> Initialize();
+	SDL_AppResult Tick();
 	
 private:
 	void Tick(const float DeltaTime);

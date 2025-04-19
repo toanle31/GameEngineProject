@@ -8,8 +8,7 @@ class ENGINE_API Application
 {
 	REGISTER_SINGLETON_CLASS(Application, class SingletonContainer)
 public:
-	 ~Application() = default;
-	
+	~Application() = default;
 	SDL_AppResult Start(ApplicationContext& AppContext);
 	void Shutdown();
 };

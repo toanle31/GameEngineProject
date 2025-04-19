@@ -2,5 +2,5 @@
 #include "Application.h"
 #include "Engine.h"
 
-template ENGINE_API Application* SingletonContainer::CreateSingletonInstance<Application>();
-template ENGINE_API Engine* SingletonContainer::CreateSingletonInstance<Engine>();
+template ENGINE_API TSharedPtr<Application> SingletonContainer::CreateSingletonInstance<Application>();
+template ENGINE_API TSharedPtr<Engine> SingletonContainer::CreateSingletonInstance<Engine>();

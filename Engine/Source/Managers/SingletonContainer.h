@@ -9,13 +9,16 @@ class SingletonContainer
 {
 public:
     template <typename T>
-    static [[nodiscard]] T* CreateSingletonInstance()
+    static [[nodiscard]] TSharedPtr<T> CreateSingletonInstance()
     {
         if (!Singletons.contains(typeid(T)))
         {
             const TypeIndex Id = typeid(T);
-            Singletons.emplace(Id, TSharedPtr<T>(new T()));
-            return any_cast<TSharedPtr<T>>(Singletons[Id]).get();
+            T* t = new T();
+            TSharedPtr<T> s;
+            s.reset(t);
+            Singletons.emplace(Id, s);
+            return any_cast<TSharedPtr<T>>(Singletons[Id]);
         }
         
         return nullptr;

@@ -5,12 +5,10 @@
 
 SDL_AppResult Application::Start(ApplicationContext& Context)
 {
-    Engine* EngineInstance = SingletonContainer::CreateSingletonInstance<Engine>();
-    Context.SEngine.reset(EngineInstance);
-
-    int32 RetVal = EngineInstance->Start();
+    TSharedPtr<Engine> EngineInstance = SingletonContainer::CreateSingletonInstance<Engine>();
+    Context.SEngine = EngineInstance;
     
-    return static_cast<SDL_AppResult>(RetVal);
+    return EngineInstance->Start();
 }
 
 void Application::Shutdown()

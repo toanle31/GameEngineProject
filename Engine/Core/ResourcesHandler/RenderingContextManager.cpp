@@ -23,11 +23,8 @@ SDL_AppResult RenderingContextManager::Initialize(const char* WinTitle, uint16 X
 
 SDL_Window* RenderingContextManager::TryGetWindowWithId(const SDL_WindowID Id)
 {
-    if (!Windows.contains(Id))
-    {
-        return nullptr;
-    }
-    
+    if (!Windows.contains(Id)) return nullptr;
+
     return Windows[Id];
 }
 
@@ -37,4 +34,7 @@ void RenderingContextManager::Shutdown()
     {
         SDL_DestroyWindow(It.second);
     }
+
+    Windows.clear();
+    SDL_Quit();
 }

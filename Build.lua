@@ -51,7 +51,7 @@ workspace "GameEngineProject"
             "/Zc:preprocessor", 
             "/Zc:__cplusplus",
             "/experimental:module"
-            }
+        }
     
     defines { "%{string.upper(prj.name)}" .. "_MODULE" }
     

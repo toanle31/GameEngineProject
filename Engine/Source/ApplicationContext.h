@@ -6,6 +6,7 @@
 
 struct ENGINE_API ApplicationContext
 {
+    ~ApplicationContext() = default;
     TSharedPtr<Application> SApp;
     TSharedPtr<Engine> SEngine;
 };
