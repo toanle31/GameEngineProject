@@ -7,8 +7,8 @@
 .idea/
 *.user
 *.obj
-/Extern/Lib
-**/Extern/Lib
+/Extern/Lib/*
+**/Extern/Lib/*
 
 # Visual Studio files and folder
 .vs/
