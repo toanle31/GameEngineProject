@@ -18,10 +18,10 @@ workspace "GameEngineProject"
 	includedirs {
 	    "%{wks.location}/Includes",
 	    "%{wks.location}/Engine",
-        "%{wks.location}/Engine/Source",
-        "%{wks.location}/Engine/Source/Managers",
         "%{wks.location}/Engine/Core",
-        "%{wks.location}/Engine/GameFramework",
+        "%{wks.location}/Engine/Core/EngineTypes",
+        "%{wks.location}/Engine/EngineModules",
+        "%{wks.location}/Engine/FrameworkModules",
 		"%{wks.location}/Core",
 		"%{wks.location}/Core/CoreTypes",
 		"%{wks.location}/Core/Time",
@@ -92,9 +92,10 @@ group "Core"
 
 group "Engine"
     include "Engine/Build-Engine.lua"
+    include "Engine/EngineModules/Build-EngineModules.lua"
     
 group "GameFramework"
-    include "Engine/GameFramework/Build-GameFramework.lua"
+    include "Engine/FrameworkModules/Build-GameFramework.lua"
 	
 group "Sandbox"
 	include "Sandbox/Build-Sandbox.lua"

@@ -1,7 +1,7 @@
 -- SCENE
 project "Scene"
     staticruntime "off"
-	location "%{wks.location}/Engine/GameFramework/%{prj.name}"
+	location "%{wks.location}/Engine/FrameworkModules/%{prj.name}"
 	dependson {"Core"}
 	files { 
         "%{prj.location}/**.h", 
@@ -12,7 +12,7 @@ project "Scene"
         forceincludes { "pch.h" }
         
     includedirs {
-        "%{prj.name}/Source"
+        "%{prj.location}/*"
     }
 
 	filter "platforms:not *Shared"
@@ -21,7 +21,7 @@ project "Scene"
 -- PHYSICS        
 project "Physics"
     staticruntime "off"
-	location "%{wks.location}/Engine/GameFramework/%{prj.name}"
+	location "%{wks.location}/Engine/FrameworkModules/%{prj.name}"
 	dependson {"Core"}
 	files { 
         "%{prj.location}/**.h", 
@@ -32,7 +32,7 @@ project "Physics"
         forceincludes { "pch.h" }
         
     includedirs {
-        "%{prj.name}/Source"
+        "%{prj.location}/*"
     }
 
 	filter "platforms:not *Shared"
@@ -41,7 +41,7 @@ project "Physics"
 -- AUDIO        
 project "Audio"
     staticruntime "off"
-	location "%{wks.location}/Engine/GameFramework/%{prj.name}"
+	location "%{wks.location}/Engine/FrameworkModules/%{prj.name}"
 	dependson {"Core"}
 	files { 
         "%{prj.location}/**.h", 
@@ -52,7 +52,7 @@ project "Audio"
         forceincludes { "pch.h" }
         
     includedirs {
-        "%{prj.name}/Source"
+        "%{prj.location}/*"
     }
 
 	filter "platforms:not *Shared"

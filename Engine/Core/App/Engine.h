@@ -1,6 +1,6 @@
 #pragma once
 #include "Core.h"
-#include "ResourcesHandler/RenderingContextManager.h"
+#include "ResourcesHandler/Types/RenderingContextManager.h"
 
 struct ApplicationContext;
 

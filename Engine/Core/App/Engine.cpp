@@ -1,7 +1,5 @@
 #include "Engine.h"
-
-#include "ApplicationContext.h"
-#include "SingletonContainer.h"
+#include "Managers/SingletonContainer.h"
 
 SDL_AppResult Engine::Start()
 {
@@ -24,7 +22,16 @@ void Engine::Shutdown()
 
 SDL_AppResult Engine::Tick()
 {
-	return SDL_APP_SUCCESS;
+	// Calculate DeltaTime
+	// Call the other Tick Function
+	// GameInstance Tick
+	// Process input (forwarded from SDL)
+	// Scene update
+	// ECS game play elements
+	// Physics Update
+	// Render
+	
+	return SDL_APP_CONTINUE;
 }
 
 void Engine::Tick(const float DeltaTime)

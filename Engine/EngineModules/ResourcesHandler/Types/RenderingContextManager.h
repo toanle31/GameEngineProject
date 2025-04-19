@@ -27,6 +27,7 @@ public:
     
 private:
     TMap<SDL_WindowID, SDL_Window*> Windows; // stores all the windows
+    // currently focused window - provide draw context here?
 };
 
 EXPORT_SHARED_PTR_Class(RESOURCESHANDLER, RenderingContextManager);
