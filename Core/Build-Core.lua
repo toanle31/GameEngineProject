@@ -3,6 +3,7 @@ project "Core"
 	location "%{wks.location}/%{prj.name}"
     pchheader "pch.h"
     pchsource "%{wks.location}/Includes/pch.cpp"   
+    defines { "Core" }
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp",

@@ -13,5 +13,10 @@
     template<typename... Ts, typename = std::enable_if_t<(sizeof...(Ts) > 0)>>\
     ClassName(Ts... args) = delete;
 
-#define EXPORT_SHARED_PTR_Class(Module, ClassName) \
+#define EXPORT_SMART_PTR_CLASS(Module, ClassName) \
     template class Module##_API std::shared_ptr<ClassName>;
+
+#define NODISCARD [[nodiscard]]
+
+#define DECLARE_SUPER(SuperClass) \
+    using Super = SuperClass;

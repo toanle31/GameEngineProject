@@ -1,6 +1,7 @@
 #pragma once
+#include "stdint.h"
 
-enum class BUILD
+enum class BUILD : uint8_t
 {
     NONE,
     DEBUG,
@@ -8,7 +9,7 @@ enum class BUILD
     RELEASE
 };
 
-enum class PLATFORM
+enum class PLATFORM : uint8_t
 {
     NONE,
     WINDOWS,

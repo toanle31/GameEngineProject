@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "Managers/SingletonContainer.h"
 
-SDL_AppResult Application::Start()
+SAppResult Application::Start()
 {
     TSharedPtr<Engine> EngineInstance = SingletonContainer::CreateSingletonInstance<Engine>();
     SEngine = EngineInstance;
@@ -10,12 +10,12 @@ SDL_AppResult Application::Start()
     return EngineInstance->Start();
 }
 
-SDL_AppResult Application::HandleSDLIterate()
+SAppResult Application::HandleSDLIterate()
 {
     return SEngine->Tick();
 }
 
-void Application::HandleSDLEvent(SDL_Event& Event)
+void Application::HandleSDLEvent(SEvent& Event)
 {
     
 }

@@ -11,14 +11,14 @@ private:
 
 public:
 	virtual ~Engine() = default;
-	SDL_AppResult Start();
+	SAppResult Start();
+	SAppResult Tick();
 	void Shutdown();
-	SDL_AppResult Tick();
 	
 private:
 	void Tick(const float DeltaTime);
-
 	TSharedPtr<RenderingContextManager> SRenderContextManager;
 };
 
-EXPORT_SHARED_PTR_Class(ENGINE, Engine);
+EXPORT_SMART_PTR_CLASS(ENGINE, Engine);
+EXPORT_SMART_PTR_CLASS(ENGINE, RenderingContextManager);

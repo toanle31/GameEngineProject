@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Containers.h"
+#include "RAIIWrappers/SDLRAIIs.h"
 
 class SingletonContainer;
 /*
@@ -14,20 +15,20 @@ class RenderingContextManager
 public:
 
     ~RenderingContextManager() = default;
-    
-    /*
-     * SDL initialization.
-     */
-    RESOURCESHANDLER_API SDL_AppResult Initialize(const char* WinTitle, uint16 X, uint16 Y, const SDL_WindowFlags Flags);
-    // Templated things here for specific render APIs
 
-    RESOURCESHANDLER_API SDL_Window* TryGetWindowWithId(const SDL_WindowID Id);
-
+    // This function needs to be templated different renderingAPIs
+    RESOURCESHANDLER_API SAppResult Initialize(const char* WinTitle, uint16 X, uint16 Y, const SWindowFlags Flags);
+    RESOURCESHANDLER_API NODISCARD AppWindow* TryGetWindowWithId(const SWindowId Id);
     RESOURCESHANDLER_API void Shutdown();
     
 private:
-    TMap<SDL_WindowID, SDL_Window*> Windows; // stores all the windows
+    TSharedPtr<SInitObject> Init; // scope bound object for sdl init call
+    TMap<SWindowId, TSharedPtr<AppWindow>> Windows; // stores all the windows
     // currently focused window - provide draw context here?
 };
 
-EXPORT_SHARED_PTR_Class(RESOURCESHANDLER, RenderingContextManager);
+EXPORT_SMART_PTR_CLASS(ENGINE, RenderingContextManager)
+
+//template ENGINE_API SDL_AppResult Initialize<ERenderingAPI::Vulkan>(const char*, uint16, uint16, const SDL_WindowFlags);
+//template ENGINE_API SDL_AppResult Initialize<ERenderingAPI::OpenGL>(const char*, uint16, uint16, const SDL_WindowFlags);
+//template ENGINE_API SDL_AppResult Initialize<ERenderingAPI::DirectX>(const char*, uint16, uint16, const SDL_WindowFlags);

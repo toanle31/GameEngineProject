@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Managers/SingletonContainer.h"
 
-SDL_AppResult Engine::Start()
+SAppResult Engine::Start()
 {
 	// Create Renderer here with correct type. (with Settings?)
 	// Use std::enable_if here to branch
@@ -10,8 +10,9 @@ SDL_AppResult Engine::Start()
 	TSharedPtr<RenderingContextManager> RCM = SingletonContainer::CreateSingletonInstance<RenderingContextManager>();
 	SRenderContextManager = RCM;
 	// Decide on Rendering API to pass into manager
-	SDL_WindowFlags Flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_HIDDEN);
-	return RCM->Initialize("Hello World!", 1920, 1080, Flags);
+	// SRenderContextManager->Initialize<type>(SRenderer->GetSDLParams())
+	
+	return AppContinue;
 }
 
 void Engine::Shutdown()
@@ -20,7 +21,7 @@ void Engine::Shutdown()
 	SRenderContextManager->Shutdown();
 }
 
-SDL_AppResult Engine::Tick()
+SAppResult Engine::Tick()
 {
 	// Calculate DeltaTime
 	// Call the other Tick Function
@@ -31,7 +32,7 @@ SDL_AppResult Engine::Tick()
 	// Physics Update
 	// Render
 	
-	return SDL_APP_CONTINUE;
+	return AppContinue;
 }
 
 void Engine::Tick(const float DeltaTime)

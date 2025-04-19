@@ -9,7 +9,7 @@ class SingletonContainer
 {
 public:
     template <typename T>
-    static [[nodiscard]] TSharedPtr<T> CreateSingletonInstance()
+    static NODISCARD TSharedPtr<T> CreateSingletonInstance()
     {
         if (!Singletons.contains(typeid(T)))
         {
