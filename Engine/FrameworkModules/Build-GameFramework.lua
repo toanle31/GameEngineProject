@@ -15,9 +15,6 @@ project "Scene"
         "%{prj.location}/*"
     }
 
-	filter "platforms:not *Shared"
-	    links { "Core" }
-
 -- PHYSICS        
 project "Physics"
     staticruntime "off"
@@ -35,8 +32,6 @@ project "Physics"
         "%{prj.location}/*"
     }
 
-	filter "platforms:not *Shared"
-	    links { "Core" }
 
 -- AUDIO        
 project "Audio"
@@ -54,6 +49,3 @@ project "Audio"
     includedirs {
         "%{prj.location}/*"
     }
-
-	filter "platforms:not *Shared"
-	    links { "Core" }

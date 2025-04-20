@@ -1,24 +1,27 @@
 #include "Engine.h"
+#include "CoreTypes.h"
 #include "Managers/SingletonContainer.h"
 
 SAppResult Engine::Start()
 {
 	// Create Renderer here with correct type. (with Settings?)
-	// Use std::enable_if here to branch
 	
 	// Create RenderingContextManager
-	TSharedPtr<RenderingContextManager> RCM = SingletonContainer::CreateSingletonInstance<RenderingContextManager>();
-	SRenderContextManager = RCM;
-	// Decide on Rendering API to pass into manager
-	// SRenderContextManager->Initialize<type>(SRenderer->GetSDLParams())
+	SRenderContextManager = SingletonContainer::CreateSingletonInstance<RenderingContextManager>();
+	if (TSharedPtr<RenderingContextManager> RCManager = SRenderContextManager.lock())
+	{
+		//WindowSettings Test = WindowSettings();
+		//return RCManager->Initialize<ERenderingAPI>(Test);
+	}
 	
+	//LOG_ERROR(ELogCategory::Engine, "%s - Failed to instantiate RenderingContextManager!!", __func__);
+	// return AppFail;
 	return AppContinue;
 }
 
 void Engine::Shutdown()
 {
-	// Free the windows
-	SRenderContextManager->Shutdown();
+	if (TSharedPtr<RenderingContextManager> RCManager = SRenderContextManager.lock()) RCManager->Shutdown();
 }
 
 SAppResult Engine::Tick()

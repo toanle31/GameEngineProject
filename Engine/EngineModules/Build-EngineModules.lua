@@ -3,6 +3,8 @@ project "Rendering"
     staticruntime "off"
 	location "%{wks.location}/Engine/EngineModules/%{prj.name}"
 	dependson {"Core"}
+	links {"Core", "%{PATH.Lib_SDL}"}
+	uses { "SDL" }
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
@@ -14,17 +16,14 @@ project "Rendering"
     includedirs {
         "%{prj.location}/*"
     }
-
-	filter "platforms:not *Shared"
-	    links { "Core" }
-	    	
+   	
 -- RESOURCEMANAGEMENT
 project "ResourcesHandler"
     staticruntime "off"
 	location "%{wks.location}/Engine/EngineModules/%{prj.name}"
 	dependson { "Core" }
 	links { "%{PATH.Lib_SDL}" }
-	defines { "ResourcesHandler" }
+	uses { "SDL" }
     files { 
         "%{prj.location}/**.h", 
         "%{prj.location}/**.cpp"
@@ -36,9 +35,6 @@ project "ResourcesHandler"
     includedirs {
         "%{prj.location}/*"
     }
-
-	filter "platforms:not *Shared"
-	    links { "Core" }
 	    		
 -- INPUT
 project "Input"
@@ -56,9 +52,6 @@ project "Input"
     includedirs {
         "%{prj.location}/*"
     }
-
-	filter "platforms:not *Shared"
-	    links { "Core" }
 	    	     
 -- ECS
 project "ECS"
@@ -76,6 +69,4 @@ project "ECS"
     includedirs {
         "%{prj.location}/*"
     }
-
-	filter "platforms:not *Shared"
-	    links { "Core" }	
+	

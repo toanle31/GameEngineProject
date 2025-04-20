@@ -7,5 +7,5 @@
 struct ENGINE_API ApplicationContext
 {
     ~ApplicationContext() = default;
-    TSharedPtr<Application> SApp;
+    TWeakPtr<Application> SApp;
 };

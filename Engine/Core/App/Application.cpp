@@ -3,16 +3,20 @@
 
 SAppResult Application::Start()
 {
-    TSharedPtr<Engine> EngineInstance = SingletonContainer::CreateSingletonInstance<Engine>();
-    SEngine = EngineInstance;
+    SEngine = SingletonContainer::CreateSingletonInstance<Engine>();
     // Bind event callback here from SDL
-    
-    return EngineInstance->Start();
+    if (TSharedPtr<Engine> EngineSP = SEngine.lock()) return EngineSP->Start();
+
+    LOG_MSG(ELogCategory::App, ELogVerbosity::Error, "{} - Failed to create Engine Instance!", __func__);
+    return AppFail;
 }
 
-SAppResult Application::HandleSDLIterate()
+SAppResult Application::HandleSDLIterate() const
 {
-    return SEngine->Tick();
+    if (TSharedPtr<Engine> EngineSP = SEngine.lock()) return EngineSP->Tick();
+
+    LOG_MSG(ELogCategory::App, ELogVerbosity::Error, "{} - Engine Instance is destroyed!", __func__);
+    return AppFail;
 }
 
 void Application::HandleSDLEvent(SEvent& Event)
@@ -22,5 +26,5 @@ void Application::HandleSDLEvent(SEvent& Event)
 
 void Application::Shutdown()
 {
-    if (SEngine) SEngine->Shutdown();
+    if (TSharedPtr<Engine> EngineSP = SEngine.lock()) EngineSP->Shutdown();
 }

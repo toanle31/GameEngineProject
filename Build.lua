@@ -14,7 +14,6 @@ workspace "GameEngineProject"
     rtti("On")
     enablemodules("On")
     buildstlmodules("On")
-    
 	includedirs {
 	    "%{wks.location}/Includes",
 	    "%{wks.location}/Engine",

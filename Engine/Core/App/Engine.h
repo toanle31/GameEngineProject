@@ -6,9 +6,6 @@ struct ApplicationContext;
 
 class ENGINE_API Engine final
 {
-private:
-	// Dependencies here
-
 public:
 	virtual ~Engine() = default;
 	SAppResult Start();
@@ -17,7 +14,7 @@ public:
 	
 private:
 	void Tick(const float DeltaTime);
-	TSharedPtr<RenderingContextManager> SRenderContextManager;
+	TWeakPtr<RenderingContextManager> SRenderContextManager;
 };
 
 EXPORT_SMART_PTR_CLASS(ENGINE, Engine);

@@ -11,12 +11,12 @@ class ENGINE_API Application
 public:
 	~Application() = default;
 	SAppResult Start();
-	SAppResult HandleSDLIterate();
+	SAppResult HandleSDLIterate() const;
 	void HandleSDLEvent(SEvent& Event);
 	
 	void Shutdown();
 private:
-	TSharedPtr<Engine> SEngine;
+	TWeakPtr<Engine> SEngine;
 };
 
 EXPORT_SMART_PTR_CLASS(ENGINE, Application)

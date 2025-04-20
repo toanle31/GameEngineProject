@@ -1,6 +1,6 @@
 #pragma once
-#include "TypeDefines.h"
 
+#include "TypeDefines.h"
 enum class ELogVerbosity : uint8
 {
     Log,
@@ -8,23 +8,31 @@ enum class ELogVerbosity : uint8
     Warning,
     Error
 };
+static constexpr int32 LOG_CATEGORY_START =
+#ifdef USING_SDL
+    SDL_LOG_CATEGORY_CUSTOM
+#else
+    0
+#endif
+;
 
-using SLogCategory = SDL_LogCategory;
 enum class ELogCategory : int16
 {
-    //Core = SLogCategory::SDL_LOG_CATEGORY_CUSTOM,
-    App = SDL_LOG_CATEGORY_CUSTOM,
+    Core = LOG_CATEGORY_START,
+    App,
     Engine,
     Rendering,
     Resources
 };
 
-#define LOG_MSG(Category, Msg) \
-    SDL_LogInfo(static_cast<int16_t>(Category), Msg);
+// Uses std::format - ("{} {}", arg1, arg2)
+#define LOG_MSG(Category, Verbosity, Msg, ...) \
+    const std::string forward_msg = std::format(Msg, __VA_ARGS__);\
+    LoggingLib::Log(Category, Verbosity, forward_msg)
 
-#define LOG_WARNING(Category, Msg) \
-    SDL_LogWarn(static_cast<int16_t>(Category), Msg);
-
-#define LOG_ERROR(Category, Msg)\
-    SDL_LogError(static_cast<int16_t>(Category), Msg);
-
+// Wrapper class for SDL-Logging functions
+class CORE_API LoggingLib final
+{
+public:
+    static void Log(ELogCategory Category, ELogVerbosity Verbosity, StringView Msg);
+};

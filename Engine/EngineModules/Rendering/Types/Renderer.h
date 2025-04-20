@@ -1,7 +1,22 @@
 #pragma once
+#include "Core.h"
+#include "Concepts.h"
+#include "CoreTypes.h"
 
-class RENDERING_API Renderer final
+template<typename T>
+class RENDERING_API IRenderer //
 {
 public:
-	~Renderer() = default;
+    bool Initialize();
+    void Shutdown();
+    
+    void BeginFrame();
+    void EndFrame();
+    void Draw();
+    void SubmitCommands();
+    
+    ERenderingAPI GetType();
+private:
+    friend T;
+    IRenderer() { static_assert(TCHasParametricConstructor<T> && TCIsDerived<T, IRenderer>); }
 };

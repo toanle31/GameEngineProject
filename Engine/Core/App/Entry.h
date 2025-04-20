@@ -8,96 +8,101 @@
 #include "ApplicationContext.h"
 #include "Application.h"
 
-inline SAppResult SDL_AppInit(void **appstate, int argc, char **argv)
+inline SAppResult SDL_AppInit(void** appstate, int argc, char** argv)
 {
     *appstate = static_cast<void*>(new ApplicationContext());
     ApplicationContext* AppContext = static_cast<ApplicationContext*>(*appstate);
     if (!AppContext)
     {
-        if (*appstate) free(*appstate);
-        LOG_ERROR(ELogCategory::App, "SDL_AppInit - Failed to typecast appstate!!");
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} Failed to typecast appstate!!", __func__);
         return AppFail;
     }
     
-    TSharedPtr<Application> App = SingletonContainer::CreateSingletonInstance<Application>();
-    if (!App)
+    AppContext->SApp = SingletonContainer::CreateSingletonInstance<Application>();
+    if (TSharedPtr<Application> App = AppContext->SApp.lock())
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppInit - Failed to create Application!!");
-        return AppFail;
+        return App->Start();
     }
     
-    AppContext->SApp = App;
-    return AppContext->SApp->Start();
+    LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} Failed to start Application!!", __func__);
+    return AppFail;
 }
 
-inline SAppResult SDL_AppIterate(void *appstate)
+inline SAppResult SDL_AppIterate(void* appstate)
 {
     if (!appstate)
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppIterate - null appstate!!");
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} null appstate!!", __func__);
         return AppFail;
     }
 
     ApplicationContext* AppContext = static_cast<ApplicationContext*>(appstate);
     if (!AppContext)
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppIterate - Failed to cast to AppContext!!");
-        free(appstate);
-        
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} Failed to cast to AppContext!!", __func__);
         return AppFail;
     }
     
-    if (!AppContext->SApp)
+    if (TSharedPtr<Application> App = AppContext->SApp.lock())
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppIterate - null engine ref from context!!");
-        free(appstate);
-        
-        return AppFail;
+        return App->HandleSDLIterate();
     }
-
-    // Runs 1 cycle of the game
-    return AppContext->SApp->HandleSDLIterate(); 
+    
+    LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} Failed retrieve Application Ref!!", __func__);
+    return AppFail;
 }
 
-inline SAppResult SDL_AppEvent(void *appstate, SDL_Event *event)
+inline SAppResult SDL_AppEvent(void* appstate, SEvent* event)
 {
     if (!appstate)
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppEvent - null appstate!!");
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} null appstate!!", __func__);
         return AppFail;
     }
     
     // Handle and forward to the appropriate system?
     ApplicationContext* AppContext = static_cast<ApplicationContext*>(appstate);
-    if (!AppContext || !AppContext->SApp)
+    if (!AppContext)
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppEvent - Failed retrieve Application Ref!!");
-        free(appstate);
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} Failed retrieve Application Ref!!", __func__);
         return AppFail;
     }
 
     // Okay to return continue when event is null.
-    if (event) AppContext->SApp->HandleSDLEvent(*event);
+    if (!event)
+    {
+        return AppContinue;
+    }
     
-    return AppContinue;
+    if (TSharedPtr<Application> App = AppContext->SApp.lock())
+    {
+        App->HandleSDLEvent(*event);
+    }
+    
+    return AppFail;
 }
 
-inline void SDL_AppQuit(void *appstate, SDL_AppResult result)
+inline void SDL_AppQuit(void* appstate, SAppResult result)
 {
     if (!appstate)
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppQuit - null appstate!!");
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} - null appstate!!", __func__);
         return;
     }
 
     ApplicationContext* AppContext = static_cast<ApplicationContext*>(appstate);
     if (!AppContext)
     {
-        LOG_ERROR(ELogCategory::App, "SDL_AppQuit - Failed to cast to AppContext!!");
+        LOG_MSG(ELogCategory::App, ELogVerbosity::Error,  "{} - Failed to cast to AppContext!!", __func__);
         free(appstate);
         return;
     }
 
-    if (AppContext->SApp) AppContext->SApp->Shutdown();   
+    if (TSharedPtr<Application> App = AppContext->SApp.lock())
+    {
+        App->Shutdown();
+    }
+    
     delete AppContext;
+    AppContext = nullptr;
 }

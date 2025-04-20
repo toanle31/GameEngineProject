@@ -2,8 +2,10 @@ project "Core"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
     pchheader "pch.h"
-    pchsource "%{wks.location}/Includes/pch.cpp"   
-    defines { "Core" }
+    pchsource "%{wks.location}/Includes/pch.cpp"
+    links { "%{PATH.Lib_SDL}" }
+    dependson { "SDL" }
+    uses { "SDL" }
 	files { 
 		"%{prj.location}/**.h", 
 		"%{prj.location}/**.cpp",

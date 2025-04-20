@@ -2,8 +2,9 @@
 project "Engine"
 	staticruntime "off"
 	location "%{wks.location}/%{prj.name}"
-	links { "ResourcesHandler" }
+	links { "Core", "%{PATH.Lib_SDL}", "ResourcesHandler" }
 	dependson { "Core", "ECS", "Rendering", "ResourcesHandler" }
+	uses { "SDL" }
    	files { 
 		"%{prj.location}/Core/**.h", 
 		"%{prj.location}/Core/**.cpp"
@@ -20,6 +21,3 @@ project "Engine"
         "%{prj.location}/EngineModules",
         "%{prj.location}/FrameworkModules",
     }
-    
-    filter "platforms:not *Shared"
-        links { "Core" }
