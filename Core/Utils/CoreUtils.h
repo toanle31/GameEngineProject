@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "CoreMacros.h"
 #include "TypeDefines.h"
 
 template <class T>
@@ -35,7 +36,7 @@ public:
         typename T,
         class Container = std::vector<T>,
         typename Predicate> requires std::is_invocable_r_v<bool, Predicate, const T&>
-    static T* FindByPred(Container& C, Predicate Pred)
+    static NODISCARD T* FindByPred(Container& C, Predicate Pred)
     {
         auto Iter = std::find_if(C.begin(), C.end(), Pred);
         if (Iter != C.end()) return &*Iter; // found

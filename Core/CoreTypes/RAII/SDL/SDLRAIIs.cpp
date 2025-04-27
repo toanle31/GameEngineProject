@@ -13,6 +13,7 @@ SWindowId SWindowHandle::GetWindowId()
 void SWindowHandle::DestroyResource()
 {
     SDL_DestroyWindow(Resource);
+    Resource = nullptr;
 }
 
 SInitHandle::SInitHandle(SInitFlags Flags, bool& outSuccess)

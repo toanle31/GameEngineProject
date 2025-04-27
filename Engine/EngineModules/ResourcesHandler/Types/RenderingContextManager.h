@@ -22,7 +22,7 @@ public:
     void Shutdown();
     
 private:
-    TSharedPtr<SInitHandle> Init; // scope bound object for sdl init call
+    TSharedPtr<SInitHandle> SDLInitHandle; // scope bound object for sdl init call
     TArray<TSharedPtr<SWindowHandle>> Windows; // stores all the windows
     // currently focused window - provide draw context here?
 };

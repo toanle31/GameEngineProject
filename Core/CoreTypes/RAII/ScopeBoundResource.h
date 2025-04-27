@@ -2,8 +2,8 @@
 #include "Core.h"
 #include "Concepts.h"
 
-#define DECLARE_SBR_FUNCTION(RetType, FuncName, BaseType, ...) \
-    
+DECLARE_CRTP_FUNCTION_CONCEPT(bool, IsValid)
+DECLARE_CRTP_FUNCTION_CONCEPT(void, DestroyResource)
 
 /* Interface to provide RAII functionality as a common contract.
  * Sub-classes Should override the DestroyResource() function so resources can be clean up correctly.
@@ -11,21 +11,23 @@
 template <class C, typename T>
 class ScopeBoundResource
 {
+    DEFINE_CRTP_CLASS(ScopeBoundResource, C)
+
 public:
-    virtual ~ScopeBoundResource() { DestroyResource(); }
-    
+    virtual ~ScopeBoundResource() { this->DestroyResource(); }
     NODISCARD T* GetResource() { return Resource; }
 
-    
-    
-    bool IsValid() { return (static_cast<C&>(*this)).IsValid(); }
-    void DestroyResource() { (static_cast<C&>(*this)).DestroyResource(); }
-    
+    DEFINE_CRTP_FUNCTION(bool, IsValid, ScopeBoundResource, C)
+    {
+        return !!Resource;
+    }
+
+    DEFINE_CRTP_FUNCTION(void, DestroyResource, ScopeBoundResource, C)
+    {
+        delete Resource;
+        Resource = nullptr;
+    }
+
 protected:
     T* Resource = nullptr;
-
-private:
-    // compile time type safety
-    friend C;
-    ScopeBoundResource() { static_assert(TCHasParametricConstructor<C> && TCIsDerived<C, ScopeBoundResource>); }
 };

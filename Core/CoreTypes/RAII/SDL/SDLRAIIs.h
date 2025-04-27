@@ -8,6 +8,7 @@
  */
 class CORE_API SWindowHandle final : public ScopeBoundResource<SWindowHandle, SWindow> 
 {
+    DECLARE_SUPER(ScopeBoundResource)
 public:
     ~SWindowHandle() = default;
     SWindowHandle() = delete;
@@ -23,6 +24,7 @@ public:
  */
 class CORE_API SInitHandle final : public ScopeBoundResource<SInitHandle, void>
 {
+    DECLARE_SUPER(ScopeBoundResource)
 public:
     ~SInitHandle() = default;
     SInitHandle() = delete;

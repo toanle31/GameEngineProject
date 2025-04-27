@@ -6,7 +6,7 @@ template <typename T>
 bool RenderingContextManager::Initialize(const WindowSettings& WSettings)
 {
     bool bInitResult = false;
-    Init = CoreUtils::MakeShared<SInitHandle>(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD, bInitResult);
+    SDLInitHandle = CoreUtils::MakeShared<SInitHandle>(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD, bInitResult);
     if (!bInitResult)
     {
         LOG_MSG(ELogCategory::Resources, ELogVerbosity::Error,  "{} - Failed to initialize SDL context!!", __func__);
@@ -35,9 +35,9 @@ TWeakPtr<SWindowHandle> RenderingContextManager::TryGetWindowWithId(const uint32
 {
     auto Pred = [Id] (const TWeakPtr<SWindowHandle>& Handle) -> bool
     {
-        if (TSharedPtr<SWindowHandle> SHandle = Handle.lock())
+        if (TSharedPtr<SWindowHandle> SWinHandle = Handle.lock())
         {
-            return SHandle->GetWindowId() == Id;
+            return SWinHandle->GetWindowId() == Id;
         }
         
         return false;
@@ -54,6 +54,6 @@ TWeakPtr<SWindowHandle> RenderingContextManager::TryGetWindowWithId(const uint32
 
 void RenderingContextManager::Shutdown()
 {
-    Init.reset();
+    SDLInitHandle.reset();
     Windows.clear();
 }
