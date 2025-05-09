@@ -33,6 +33,7 @@
     Base() { static_assert(TCHasParametricConstructor<Derived> && TCIsDerived<Derived, Base>); }
 
 #define TC_HAS_CONCEPT(FuncName) TCHas##FuncName
+
 // Pattern is this_macro() { ... default implementation here ... }
 // Compilation will only include one, basically a way to provide base implementation
 // useful for function that doesn't really need to be overriden
@@ -41,12 +42,25 @@
     { \
         if constexpr (TC_HAS_CONCEPT(FuncName)<Base, Derived>)\
         {\
-            return (static_cast<Derived&>(*this)).FuncName(); \
+            return (static_cast<Derived&>(*this)).FuncName(__VA_ARGS__); \
         }\
         else \
         { \
-            return FuncName##_Base(__VA_ARGS__); \
+            return FuncName##_Def(__VA_ARGS__); \
         }\
-    } \
-    \
-    RetType FuncName##_Base(__VA_ARGS__) requires (!TC_HAS_CONCEPT(FuncName)<Base, Derived>)
+    }\
+    RetType FuncName##_Def(__VA_ARGS__) requires (!TC_HAS_CONCEPT(FuncName)<Base, Derived>)
+
+#define DEFINE_CRTP_FUNCTION_STATIC(RetType, FuncName, Base, Derived, ...) \
+    static RetType FuncName(__VA_ARGS__)\
+    { \
+        if constexpr (TC_HAS_CONCEPT(FuncName)<Base, Derived>)\
+        {\
+            return Derived::FuncName(__VA_ARGS__); \
+        }\
+        else \
+        { \
+            return Base::FuncName##_Def(__VA_ARGS__); \
+        }\
+    }\
+    RetType FuncName##_Def(__VA_ARGS__) requires (!TC_HAS_CONCEPT(FuncName)<Base, Derived>)

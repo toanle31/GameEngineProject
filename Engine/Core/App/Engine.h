@@ -14,7 +14,7 @@ public:
 	
 private:
 	void Tick(const float DeltaTime);
-	TWeakPtr<RenderingContextManager> SRenderContextManager;
+	TWeakPtr<RenderingContextManager> RenderContextManager;
 };
 
 EXPORT_SMART_PTR_CLASS(ENGINE, Engine);

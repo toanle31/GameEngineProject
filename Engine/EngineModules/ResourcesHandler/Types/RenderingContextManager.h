@@ -3,6 +3,7 @@
 #include "Core.h"
 #include "Containers.h"
 #include "RAII/SDL/SDLRAIIs.h"
+#include "Rendering/Types/Renderer.h"
 
 struct WindowSettings;
 class SingletonContainer;
@@ -16,7 +17,7 @@ class RESOURCESHANDLER_API RenderingContextManager
 public:
     ~RenderingContextManager() = default;
     // Templated so we can branch initialize depending on the RenderingAPI passed in.
-    template <typename T> bool Initialize(const WindowSettings& WSettings);
+    template <typename T> requires TCIsDerived<T, IRenderer<T>> bool Initialize(const WindowSettings& WSettings);
     NODISCARD TWeakPtr<SWindowHandle> CreateNewWindow(const WindowSettings& WSettings);
     NODISCARD TWeakPtr<SWindowHandle> TryGetWindowWithId(const SWindowId Id);
     void Shutdown();

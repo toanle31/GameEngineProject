@@ -2,7 +2,7 @@
 #include "CoreTypes.h"
 #include "CoreUtils.h"
 
-template <typename T>
+template <class T> requires TCIsDerived<T, IRenderer<T>>
 bool RenderingContextManager::Initialize(const WindowSettings& WSettings)
 {
     bool bInitResult = false;
@@ -10,10 +10,21 @@ bool RenderingContextManager::Initialize(const WindowSettings& WSettings)
     if (!bInitResult)
     {
         LOG_MSG(ELogCategory::Resources, ELogVerbosity::Error,  "{} - Failed to initialize SDL context!!", __func__);
+        SDLInitHandle.reset();
         return AppFail;
     }
 
-    // if constexpr (is T something)
+    if constexpr (T::GetType() == ERenderingAPI::Vulkan)
+    {
+
+    }
+    else
+    {
+        LOG_MSG(ELogCategory::Resources, ELogVerbosity::Error,  "{} - RenderingAPI GetType returned unsupported type!!", __func__);
+        SDLInitHandle.reset();
+        return AppFail;
+    }
+
     return AppContinue;
 }
 
@@ -28,7 +39,7 @@ TWeakPtr<SWindowHandle> RenderingContextManager::CreateNewWindow(const WindowSet
     }
     
     LOG_MSG(ELogCategory::Resources, ELogVerbosity::Error,  "{} - Failed to create new window!!", __func__);
-    return  TWeakPtr<SWindowHandle>();
+    return TWeakPtr<SWindowHandle>();
 }
 
 TWeakPtr<SWindowHandle> RenderingContextManager::TryGetWindowWithId(const uint32 Id)

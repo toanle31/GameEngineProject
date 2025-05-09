@@ -3,6 +3,7 @@
 #include "TypeDefines.h"
 enum class ERenderingAPI : uint8
 {
+    SDL,
     Vulkan,
     OpenGL,
     DirectX

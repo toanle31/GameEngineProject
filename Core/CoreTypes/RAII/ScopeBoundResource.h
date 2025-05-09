@@ -31,3 +31,12 @@ public:
 protected:
     T* Resource = nullptr;
 };
+
+template <class C>
+class ScopeBoundObjectWrapper
+{
+    DEFINE_CRTP_CLASS(ScopeBoundObjectWrapper, C);
+public:
+    virtual ~ScopeBoundObjectWrapper() { this->DestroyResource(); }
+    DEFINE_CRTP_FUNCTION(void, DestroyResource, ScopeBoundObjectWrapper, C) { }
+};

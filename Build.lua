@@ -100,4 +100,4 @@ group "Sandbox"
 	include "Sandbox/Build-Sandbox.lua"
 
 group "Dependencies"
-    include "Extern/SDL3/Build-SDL.lua"
+    include "Extern/Build-Dependencies.lua"

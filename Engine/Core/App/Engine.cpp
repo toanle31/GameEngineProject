@@ -7,8 +7,8 @@ SAppResult Engine::Start()
 	// Create Renderer here with correct type. (with Settings?)
 	
 	// Create RenderingContextManager
-	SRenderContextManager = SingletonContainer::CreateSingletonInstance<RenderingContextManager>();
-	if (TSharedPtr<RenderingContextManager> RCManager = SRenderContextManager.lock())
+	RenderContextManager = SingletonContainer::CreateSingletonInstance<RenderingContextManager>();
+	if (TSharedPtr<RenderingContextManager> RCManager = RenderContextManager.lock())
 	{
 		//WindowSettings Test = WindowSettings();
 		//return RCManager->Initialize<ERenderingAPI>(Test);
@@ -21,7 +21,7 @@ SAppResult Engine::Start()
 
 void Engine::Shutdown()
 {
-	if (TSharedPtr<RenderingContextManager> RCManager = SRenderContextManager.lock()) RCManager->Shutdown();
+	if (TSharedPtr<RenderingContextManager> RCManager = RenderContextManager.lock()) RCManager->Shutdown();
 }
 
 SAppResult Engine::Tick()

@@ -12,9 +12,9 @@ project "Rendering"
 
     filter "files:**.cpp"
         forceincludes { "pch.h" }
-        
+
     includedirs {
-        "%{prj.location}/*"
+        "%{prj.location}/**/"
     }
    	
 -- RESOURCEMANAGEMENT

@@ -8,9 +8,9 @@ using SWindowFlags  = SDL_WindowFlags;
 using SEvent        = SDL_Event;
 using SInitFlags    = SDL_InitFlags;
 using SWindow       = SDL_Window;
-inline static constexpr SAppResult AppContinue  = SAppResult::SDL_APP_CONTINUE; 
-inline static constexpr SAppResult AppSuccess   = SAppResult::SDL_APP_SUCCESS; 
-inline static constexpr SAppResult AppFail      = SAppResult::SDL_APP_FAILURE;
+inline constexpr SAppResult AppContinue  = SDL_APP_CONTINUE;
+inline constexpr SAppResult AppSuccess   = SDL_APP_SUCCESS;
+inline constexpr SAppResult AppFail      = SDL_APP_FAILURE;
 using SLogCategory = SDL_LogCategory;
 #endif
 
