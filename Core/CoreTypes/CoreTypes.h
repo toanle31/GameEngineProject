@@ -11,7 +11,7 @@ enum class ERenderingAPI : uint8
 
 struct WindowSettings
 {
-    String WindowTitle = "";
+    String WindowTitle;
     uint16 Width, Height;
     SWindowFlags Flags;
 };

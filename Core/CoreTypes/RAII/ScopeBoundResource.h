@@ -14,20 +14,11 @@ class ScopeBoundResource
     DEFINE_CRTP_CLASS(ScopeBoundResource, C)
 
 public:
-    virtual ~ScopeBoundResource() { this->DestroyResource(); }
+    virtual ~ScopeBoundResource() { this->DestroyResource_Impl(); }
     NODISCARD T* GetResource() { return Resource; }
 
     DEFINE_CRTP_FUNCTION(bool, IsValid, ScopeBoundResource, C)
-    {
-        return !!Resource;
-    }
-
     DEFINE_CRTP_FUNCTION(void, DestroyResource, ScopeBoundResource, C)
-    {
-        delete Resource;
-        Resource = nullptr;
-    }
-
 protected:
     T* Resource = nullptr;
 };
@@ -37,6 +28,6 @@ class ScopeBoundObjectWrapper
 {
     DEFINE_CRTP_CLASS(ScopeBoundObjectWrapper, C);
 public:
-    virtual ~ScopeBoundObjectWrapper() { this->DestroyResource(); }
-    DEFINE_CRTP_FUNCTION(void, DestroyResource, ScopeBoundObjectWrapper, C) { }
+    virtual ~ScopeBoundObjectWrapper() { this->DestroyResource_Impl(); }
+    DEFINE_CRTP_FUNCTION(void, DestroyResource, ScopeBoundObjectWrapper, C)
 };

@@ -22,7 +22,7 @@ project "ResourcesHandler"
     staticruntime "off"
 	location "%{wks.location}/Engine/EngineModules/%{prj.name}"
 	dependson { "Core" }
-	links { "%{PATH.Lib_SDL}" }
+	links { "Core", "%{PATH.Lib_SDL}" }
 	uses { "SDL" }
     files { 
         "%{prj.location}/**.h", 

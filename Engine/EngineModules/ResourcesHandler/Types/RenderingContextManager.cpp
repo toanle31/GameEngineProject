@@ -32,7 +32,7 @@ TWeakPtr<SWindowHandle> RenderingContextManager::CreateNewWindow(const WindowSet
 {
     // Create the main window? 
     TSharedPtr<SWindowHandle> MainWindow = CoreUtils::MakeShared<SWindowHandle>(WSettings.WindowTitle.data(), WSettings.Width, WSettings.Height, WSettings.Flags);
-    if (MainWindow && MainWindow->IsValid() && MainWindow->GetWindowId() != 0)
+    if (MainWindow && MainWindow->IsValid() && MainWindow->GetWindowId() != SInvalidWindowId)
     {
         Windows.push_back(CoreUtils::Move(MainWindow)); 
         return Windows.back();

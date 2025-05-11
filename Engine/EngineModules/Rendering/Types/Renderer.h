@@ -18,13 +18,13 @@ class RENDERING_API IRenderer
 {
     DEFINE_CRTP_CLASS(IRenderer, T)
 public:
-    DEFINE_CRTP_FUNCTION(bool, Initialize, IRenderer, T) { return true; }
+    /*DEFINE_CRTP_FUNCTION(bool, Initialize, IRenderer, T) { return true; }
     DEFINE_CRTP_FUNCTION(void, Shutdown, IRenderer, T) {}
     DEFINE_CRTP_FUNCTION(void, SetRenderingContext, IRenderer, T) {}
     DEFINE_CRTP_FUNCTION(void, HandleSDLWindowEvents, IRenderer, T) {}
     DEFINE_CRTP_FUNCTION(void, BeginFrame, IRenderer, T) {}
     DEFINE_CRTP_FUNCTION(void, EndFrame, IRenderer, T) {}
     DEFINE_CRTP_FUNCTION(void, RecordRenderingCommands, IRenderer, T) {}
-    DEFINE_CRTP_FUNCTION(void, Draw, IRenderer, T) {}
-    DEFINE_CRTP_FUNCTION_STATIC(ERenderingAPI, GetType, IRenderer, T) { return ERenderingAPI::SDL; }
+    DEFINE_CRTP_FUNCTION(void, Draw, IRenderer, T) {}*/
+    //DEFINE_CRTP_FUNCTION_STATIC(ERenderingAPI, GetType, IRenderer, T) { return ERenderingAPI::SDL; }
 };

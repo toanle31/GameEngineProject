@@ -6,9 +6,14 @@ SWindowHandle::SWindowHandle(const char* Title, const uint16 Width, const uint16
     Resource = SDL_CreateWindow(Title, Width, Height, Flags);
 }
 
-SWindowId SWindowHandle::GetWindowId()
+SWindowId SWindowHandle::GetWindowId() const
 {
     return SDL_GetWindowID(Resource);
+}
+
+bool SWindowHandle::IsValid() const
+{
+    return Resource && GetWindowId() != SInvalidWindowId;
 }
 
 void SWindowHandle::DestroyResource()
@@ -17,9 +22,9 @@ void SWindowHandle::DestroyResource()
     Resource = nullptr;
 }
 
-SInitHandle::SInitHandle(SInitFlags Flags, bool& OutSuccess)
+SInitHandle::SInitHandle(const SInitFlags Flags)
 {
-    OutSuccess = bInitialized = SDL_Init(Flags);
+    bInitialized = SDL_Init(Flags);
 }
 
 void SInitHandle::DestroyResource()
@@ -28,13 +33,13 @@ void SInitHandle::DestroyResource()
     bInitialized = false;
 }
 
-SVulkanLoadLibraryHandle::SVulkanLoadLibraryHandle()
+SVulkanLoadLibraryHandle::SVulkanLoadLibraryHandle(const char* VulkanLibPath)
 {
-    m_bInitialized = SDL_Vulkan_LoadLibrary(nullptr);
+    bInitialized = SDL_Vulkan_LoadLibrary(VulkanLibPath);
 }
 
 void SVulkanLoadLibraryHandle::DestroyResource()
 {
-    m_bInitialized = false;
+    bInitialized = false;
     SDL_Vulkan_UnloadLibrary();
 }

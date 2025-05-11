@@ -11,6 +11,7 @@ using SWindow       = SDL_Window;
 inline constexpr SAppResult AppContinue  = SDL_APP_CONTINUE;
 inline constexpr SAppResult AppSuccess   = SDL_APP_SUCCESS;
 inline constexpr SAppResult AppFail      = SDL_APP_FAILURE;
+inline constexpr SWindowId SInvalidWindowId = 0;
 using SLogCategory = SDL_LogCategory;
 #endif
 

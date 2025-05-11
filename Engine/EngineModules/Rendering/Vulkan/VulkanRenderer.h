@@ -16,7 +16,7 @@ public:
     void EndFrame();
     void RecordRenderingCommands();
     void Draw();
-    static ERenderingAPI GetType();
+    static constexpr ERenderingAPI GetType();
 private:
     TSharedPtr<SVulkanLoadLibraryHandle> SLoadVulkanLibHandle;
 };

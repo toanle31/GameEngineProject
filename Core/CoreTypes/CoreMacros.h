@@ -2,9 +2,6 @@
 
 #define NODISCARD [[nodiscard]]
 
-#define UNPACK_TYPE_VAR_NAME_PATTERN(...) \
-
-
 // Macro to register a class as a special singleton
 // that can only be created by the provided FactoryClass
 // meant to be used with SingletonContainer
@@ -19,10 +16,14 @@
     template<typename... Ts, typename = std::enable_if_t<(sizeof...(Ts) > 0)>> \
     ClassName(Ts... args) = delete;
 
-// macro to help export classes for c++ smart ptrs
-#define EXPORT_SMART_PTR_CLASS(Module, ClassName) \
-    template class Module##_API std::shared_ptr<ClassName>; \
-    template class Module##_API std::weak_ptr<ClassName>;
+#if defined(CONFIG_PLATFORM_WINDOWS) && defined(CONFIG_SHAREDLIB)
+    // macro to help export smart ptrs for a class belonging to a module
+    #define EXPORT_SMART_PTR_CLASS(Module, ClassName) \
+        template class Module##_API std::shared_ptr<ClassName>; \
+        template class Module##_API std::weak_ptr<ClassName>;
+#else
+    #define EXPORT_SMART_PTR_CLASS(Module, ClassName)
+#endif
 
 // declare super
 #define DECLARE_SUPER(SuperClass) \
@@ -30,7 +31,7 @@
 
 #define DEFINE_CRTP_CLASS(Base, Derived) \
     friend Derived; \
-    Base() { static_assert(TCHasParametricConstructor<Derived> && TCIsDerived<Derived, Base>); }
+    Base() { static_assert(TCIsDerived<Derived, Base>); }
 
 #define TC_HAS_CONCEPT(FuncName) TCHas##FuncName
 
@@ -38,29 +39,15 @@
 // Compilation will only include one, basically a way to provide base implementation
 // useful for function that doesn't really need to be overriden
 #define DEFINE_CRTP_FUNCTION(RetType, FuncName, Base, Derived, ...) \
-    RetType FuncName(__VA_ARGS__)\
+    template <typename ...As>\
+    ##__VA_ARGS__ RetType FuncName##_Impl(As... Args)\
     { \
         if constexpr (TC_HAS_CONCEPT(FuncName)<Base, Derived>)\
         {\
-            return (static_cast<Derived&>(*this)).FuncName(__VA_ARGS__); \
+            return (static_cast<Derived&>(*this)).FuncName(std::forward<As>(Args) ...); \
         }\
-        else \
-        { \
-            return FuncName##_Def(__VA_ARGS__); \
-        }\
-    }\
-    RetType FuncName##_Def(__VA_ARGS__) requires (!TC_HAS_CONCEPT(FuncName)<Base, Derived>)
-
-#define DEFINE_CRTP_FUNCTION_STATIC(RetType, FuncName, Base, Derived, ...) \
-    static RetType FuncName(__VA_ARGS__)\
-    { \
-        if constexpr (TC_HAS_CONCEPT(FuncName)<Base, Derived>)\
+        else\
         {\
-            return Derived::FuncName(__VA_ARGS__); \
+            static_assert(TC_HAS_CONCEPT(FuncName)<Base, Derived>);\
         }\
-        else \
-        { \
-            return Base::FuncName##_Def(__VA_ARGS__); \
-        }\
-    }\
-    RetType FuncName##_Def(__VA_ARGS__) requires (!TC_HAS_CONCEPT(FuncName)<Base, Derived>)
+    }

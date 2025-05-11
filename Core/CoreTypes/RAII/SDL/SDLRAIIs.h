@@ -9,10 +9,9 @@
 class CORE_API SWindowHandle final : public ScopeBoundResource<SWindowHandle, SWindow> 
 {
 public:
-    SWindowHandle() = delete;
     SWindowHandle(const char* Title, const uint16 Width, const uint16 Height, SWindowFlags Flags);
-    SWindowId GetWindowId();
-    
+    SWindowId GetWindowId() const;
+    bool IsValid() const;
     void DestroyResource();
 };
 
@@ -23,8 +22,7 @@ public:
 class CORE_API SInitHandle final : public ScopeBoundObjectWrapper<SInitHandle>
 {
 public:
-    SInitHandle() = delete;
-    SInitHandle(SInitFlags Flags, bool& OutSuccess);
+    SInitHandle(const SInitFlags Flags);
 
     bool IsValid() { return bInitialized; }
     void DestroyResource();
@@ -41,7 +39,7 @@ private:
 class CORE_API SVulkanLoadLibraryHandle final : public ScopeBoundObjectWrapper<SVulkanLoadLibraryHandle>
 {
 public:
-    SVulkanLoadLibraryHandle();
+    SVulkanLoadLibraryHandle(const char* VulkanLibPath);
     void DestroyResource();
 
 public:

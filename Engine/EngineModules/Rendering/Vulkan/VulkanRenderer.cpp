@@ -6,7 +6,7 @@
 bool VulkanRenderer::Initialize()
 {
     // Initialize SDL_vulkan stuff?
-    SLoadVulkanLibHandle = CoreUtils::MakeShared<SVulkanLoadLibraryHandle>();
+    SLoadVulkanLibHandle = CoreUtils::MakeShared<SVulkanLoadLibraryHandle>(nullptr);
     if (!SLoadVulkanLibHandle || !SLoadVulkanLibHandle->bInitialized)
     {
         String Error = SDL_GetError();
@@ -53,7 +53,8 @@ void VulkanRenderer::Draw()
 {
 
 }
-ERenderingAPI VulkanRenderer::GetType()
+
+constexpr ERenderingAPI VulkanRenderer::GetType()
 {
     return ERenderingAPI::Vulkan;
 }
